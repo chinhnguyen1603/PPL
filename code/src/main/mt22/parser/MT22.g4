@@ -1,3 +1,5 @@
+/*-------------- 1811622 Nguyen Ngoc Chinh---------------------*/
+
 grammar MT22;
 
 @lexer::header {
@@ -26,25 +28,25 @@ ID: (UNDERSCORE | LETTER) (UNDERSCORE | LETTER | DIGIT)*;
 //keyword
 AUTO: 'auto';
 FALSE: 'false';
-INT: 'integer';
-WHILE: 'while';
-OF: 'of';
+INTERGER: 'integer';
+VOID: 'void';
+ARRAY: 'array';
 BREAK: 'break';
 FLOAT: 'float';
 RETURN: 'return';
-VOID: 'void';
-INHERIT: 'inherit';
+OUT: 'out';
 BOOLEAN: 'boolean';
 FOR: 'for';
 STRING: 'string';
-FUNCTION: 'function';
+CONTINUE: 'continue';
 DO: 'do';
+FUNCTION: 'function';
 TRUE: 'true';
-OUT: 'out';
+OF: 'of';
 ELSE: 'else';
 IF: 'if';
-CONTINUE: 'continue';
-
+WHILE: 'while';
+INHERIT: 'inherit';
 
 //operator
 ADDOP: '+';
@@ -62,8 +64,7 @@ LESS_OR_EQUAL: '<=';
 GREATER: '>';
 GREATER_OR_EQUAL: '>=';	
 DOUBLE_COLON: '::';
-//ASSIGN: '=';
-//INDEXOP: ':=';
+
 
 //separator
 LB: '(';

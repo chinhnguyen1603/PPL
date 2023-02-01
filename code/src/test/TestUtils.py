@@ -107,6 +107,7 @@ class TestParser:
             dest.close()
 
 
+"""
 class TestAST:
     @staticmethod
     def test(input, expect, num):
@@ -203,3 +204,4 @@ class TestCodeGen():
                 e.cmd, e.returncode, e.output))
         finally:
             f.close()
+"""

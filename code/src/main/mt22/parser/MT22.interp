@@ -6,23 +6,24 @@ null
 'auto'
 'false'
 'integer'
-'while'
-'of'
+'void'
+'array'
 'break'
 'float'
 'return'
-'void'
-'inherit'
+'out'
 'boolean'
 'for'
 'string'
-'function'
+'continue'
 'do'
+'function'
 'true'
-'out'
+'of'
 'else'
 'if'
-'continue'
+'while'
+'inherit'
 '+'
 '-'
 '*'
@@ -60,24 +61,25 @@ COMMENT_CPLUS
 ID
 AUTO
 FALSE
-INT
-WHILE
-OF
+INTERGER
+VOID
+ARRAY
 BREAK
 FLOAT
 RETURN
-VOID
-INHERIT
+OUT
 BOOLEAN
 FOR
 STRING
-FUNCTION
+CONTINUE
 DO
+FUNCTION
 TRUE
-OUT
+OF
 ELSE
 IF
-CONTINUE
+WHILE
+INHERIT
 ADDOP
 SUBOP
 MULOP
@@ -113,4 +115,4 @@ program
 
 
 atn:
-[3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 54, 7, 4, 2, 9, 2, 3, 2, 3, 2, 3, 2, 2, 2, 3, 2, 2, 2, 2, 5, 2, 4, 3, 2, 2, 2, 4, 5, 7, 2, 2, 3, 5, 3, 3, 2, 2, 2, 2]
+[3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 55, 7, 4, 2, 9, 2, 3, 2, 3, 2, 3, 2, 2, 2, 3, 2, 2, 2, 2, 5, 2, 4, 3, 2, 2, 2, 4, 5, 7, 2, 2, 3, 5, 3, 3, 2, 2, 2, 2]
