@@ -77,6 +77,7 @@ SEMICOLON: ';';
 COLON: ':';
 LP: '{';
 RP: '}';
+ASSIGN: '=';
 
 
 // skip spaces, tabs, newlines
