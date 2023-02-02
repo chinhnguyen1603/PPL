@@ -12,7 +12,7 @@ class LexerSuite(unittest.TestCase):
         self.assertTrue(TestLexer.test("abc xyz", "abc,xyz,<EOF>", 102))
     def test_identifier3(self):
         """test identifiers"""
-        self.assertTrue(TestLexer.test("0bc xyz", "Error Token 0", 103))
+        self.assertTrue(TestLexer.test("0bc xyz", "0,bc,xyz,<EOF>", 103))
     def test_identifier4(self):
         """test identifiers"""
         self.assertTrue(TestLexer.test("_bc x2yz1", "_bc,x2yz1,<EOF>", 104))
@@ -27,7 +27,7 @@ class LexerSuite(unittest.TestCase):
         self.assertTrue(TestLexer.test("%AAc xyz", "%,AAc,xyz,<EOF>", 107))
     def test_identifier8(self):
         """test identifiers"""
-        self.assertTrue(TestLexer.test("bc \n 2xyz \f", "bc,Error Token 2", 108))
+        self.assertTrue(TestLexer.test("bc \n 2xyz \f", "bc,2,xyz,<EOF>", 108))
     def test_identifier9(self):
         """test identifiers"""
         self.assertTrue(TestLexer.test("abc. xyz", "abc,.,xyz,<EOF>", 109))
@@ -137,8 +137,8 @@ class LexerSuite(unittest.TestCase):
     def test_seperator4(self):   
         self.assertTrue(TestLexer.test(",=:abc",",,=,:,abc,<EOF>",144))
     def test_seperator5(self):
-        self.assertTrue(TestLexer.test("{c1d_}","{,cd1_,},<EOF>",145))
-    def test_seperator6(self):
+        self.assertTrue(TestLexer.test("{c1d_}","{,c1d_,},<EOF>",145))
+    def test_seperator6(self):                 
         self.assertTrue(TestLexer.test("[_12ds]","[,_12ds,],<EOF>",146))
     def test_seperator7(self):
         self.assertTrue(TestLexer.test(":=::",":,=,::,<EOF>",147))
@@ -148,3 +148,17 @@ class LexerSuite(unittest.TestCase):
         self.assertTrue(TestLexer.test("abc@","abc,Error Token @",149))
     def test_seperator10(self):
         self.assertTrue(TestLexer.test("==#","==,Error Token #",150))  
+
+   #test INTLIT
+    def test_int1(self):
+        self.assertTrue(TestLexer.test("01233 12034","0,1233,12034,<EOF>",151))
+    def test_int2(self):                            
+        self.assertTrue(TestLexer.test("000","0,0,0,<EOF>",152))
+    def test_int3(self):
+        self.assertTrue(TestLexer.test("12_345_67 12_abc","1234567,12,_abc,<EOF>",153))  
+    def test_int4(self):
+        self.assertTrue(TestLexer.test("_123 12_34","_123,1234,<EOF>",154))  
+
+   #test BOOLLIT
+    def test_bool1(self):
+        self.assertTrue(TestLexer.test("true false","true,false,<EOF>",155))  

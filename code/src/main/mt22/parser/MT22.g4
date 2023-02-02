@@ -19,11 +19,10 @@ program:  EOF ;
 COMMENT_C  : '/*' .*? '*/' -> skip;
 COMMENT_CPLUS   : '//' ~ [\r\n]* -> skip ;
 
-//Identifier
-fragment LETTER: [a-zA-Z];
-fragment UNDERSCORE: '_';
-fragment DIGIT: [0-9];
-ID: (UNDERSCORE | LETTER) (UNDERSCORE | LETTER | DIGIT)*;
+//Literal
+//INTLIT : [1-9][0-9_]* | '0';
+INTLIT: [1-9]([0-9]*'_'[0-9]+)*| '0' | [1-9][0-9]*;
+BOOLLIT: TRUE | FALSE ;
 
 //keyword
 AUTO: 'auto';
@@ -79,6 +78,11 @@ LP: '{';
 RP: '}';
 ASSIGN: '=';
 
+//Identifier
+fragment LETTER: [a-zA-Z];
+fragment UNDERSCORE: '_';
+fragment DIGIT: [0-9];
+ID: (UNDERSCORE | LETTER) (UNDERSCORE | LETTER | DIGIT)*;
 
 // skip spaces, tabs, newlines
 WS : [ \b\f\t\r\n]+ -> skip ; 
