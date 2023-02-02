@@ -20,8 +20,8 @@ COMMENT_C  : '/*' .*? '*/' -> skip;
 COMMENT_CPLUS   : '//' ~ [\r\n]* -> skip ;
 
 //Literal
-//INTLIT : [1-9][0-9_]* | '0';
-INTLIT: [1-9]([0-9]*'_'[0-9]+)*| '0' | [1-9][0-9]*;
+fragment INT: [1-9]([0-9]*'_'[0-9]+)*| '0' | [1-9][0-9]*;
+INTLIT: INT;
 BOOLLIT: TRUE | FALSE ;
 
 //keyword

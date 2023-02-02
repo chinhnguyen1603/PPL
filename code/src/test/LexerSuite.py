@@ -155,7 +155,7 @@ class LexerSuite(unittest.TestCase):
     def test_int2(self):                            
         self.assertTrue(TestLexer.test("000","0,0,0,<EOF>",152))
     def test_int3(self):
-        self.assertTrue(TestLexer.test("12_345_67 12_abc","1234567,12,_abc,<EOF>",153))  
+        self.assertTrue(TestLexer.test("12_345_67 12_abc 12__23","1234567,12,_abc,12,__23,<EOF>",153))  
     def test_int4(self):
         self.assertTrue(TestLexer.test("_123 12_34","_123,1234,<EOF>",154))  
 
