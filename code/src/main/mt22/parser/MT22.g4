@@ -21,7 +21,9 @@ COMMENT_CPLUS   : '//' ~ [\r\n]* -> skip ;
 
 //Literal
 fragment INT: [1-9]([0-9]*'_'[0-9]+)*| '0' | [1-9][0-9]*;
-INTLIT: INT;
+INTLIT: INT {
+	self.text = (self.text).replace("_", "") 
+};
 BOOLLIT: TRUE | FALSE ;
 
 //keyword
