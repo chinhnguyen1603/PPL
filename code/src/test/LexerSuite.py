@@ -149,7 +149,7 @@ class LexerSuite(unittest.TestCase):
     def test_seperator10(self):
         self.assertTrue(TestLexer.test("==#","==,Error Token #",150))  
 
-   #test INTLIT
+    #test INTLIT
     def test_int1(self):
         self.assertTrue(TestLexer.test("01233 12034","0,1233,12034,<EOF>",151))
     def test_int2(self):                            
@@ -159,11 +159,11 @@ class LexerSuite(unittest.TestCase):
     def test_int4(self):
         self.assertTrue(TestLexer.test("_123 12_34","_123,1234,<EOF>",154))  
 
-   #test BOOLLIT
+    #test BOOLLIT
     def test_bool1(self):
-        self.assertTrue(TestLexer.test("true false","true,false,<EOF>",155))  
+        self.assertTrue(TestLexer.test("true false true","true,false,true,<EOF>",155))  
 
-   #test FLOATLIT
+    #test FLOATLIT
     def test_float1(self):
         self.assertTrue(TestLexer.test("1_234_56.345 1_234_56.3_45","123456.345,123456.3,_45,<EOF>",156))         
     def test_float2(self):                                      
@@ -174,3 +174,25 @@ class LexerSuite(unittest.TestCase):
         self.assertTrue(TestLexer.test("123456. .123456 .123456E-10","123456.,.123456,.123456,E,-,10,<EOF>",159)) 
     def test_float5(self):
         self.assertTrue(TestLexer.test("7E-10 8e+12 1.e+2","7E-10,8e+12,1.,e,+,2,<EOF>",160))                                 
+
+    #test STRINGLIT
+    def test_string1(self):
+        self.assertTrue(TestLexer.test("\"This is a string containing tab \t \"","This is a string containing tab,<EOF>",161))
+    def test_string2(self):
+        self.assertTrue(TestLexer.test("\"ahihi\"","ahihi\\\",<EOF>",162))
+    def test_string3(self):
+        self.assertTrue(TestLexer.test(". , ; :",".,,,;,:,<EOF>",163))
+    def test_string4(self):   
+        self.assertTrue(TestLexer.test(",=:abc",",,=,:,abc,<EOF>",164))
+    def test_string5(self):
+        self.assertTrue(TestLexer.test("{c1d_}","{,c1d_,},<EOF>",165))
+    def test_string6(self):                 
+        self.assertTrue(TestLexer.test("[_12ds]","[,_12ds,],<EOF>",166))
+    def test_string7(self):
+        self.assertTrue(TestLexer.test(":=::",":,=,::,<EOF>",167))
+    def test_string8(self):
+        self.assertTrue(TestLexer.test("((~","(,(,Error Token ~",168))
+    def test_string9(self):                            
+        self.assertTrue(TestLexer.test("abc@","abc,Error Token @",169))
+    def test_string10(self):
+        self.assertTrue(TestLexer.test("==#","==,Error Token #",170))      

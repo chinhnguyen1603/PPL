@@ -11,7 +11,7 @@ else:
 
 def serializedATN():
     with StringIO() as buf:
-        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3;")
+        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3<")
         buf.write("\7\4\2\t\2\3\2\3\2\3\2\2\2\3\2\2\2\2\5\2\4\3\2\2\2\4\5")
         buf.write("\7\2\2\3\5\3\3\2\2\2\2")
         return buf.getvalue()
@@ -28,25 +28,26 @@ class MT22Parser ( Parser ):
     sharedContextCache = PredictionContextCache()
 
     literalNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                     "<INVALID>", "<INVALID>", "'auto'", "'false'", "'integer'", 
-                     "'void'", "'array'", "'break'", "'float'", "'return'", 
-                     "'out'", "'boolean'", "'for'", "'string'", "'continue'", 
-                     "'do'", "'function'", "'true'", "'of'", "'else'", "'if'", 
-                     "'while'", "'inherit'", "'+'", "'-'", "'*'", "'/'", 
-                     "'%'", "'!'", "'&&'", "'||'", "'=='", "'!='", "'<'", 
-                     "'<='", "'>'", "'>='", "'::'", "'('", "')'", "'['", 
-                     "']'", "'.'", "','", "';'", "':'", "'{'", "'}'", "'='" ]
+                     "<INVALID>", "<INVALID>", "<INVALID>", "'auto'", "'false'", 
+                     "'integer'", "'void'", "'array'", "'break'", "'float'", 
+                     "'return'", "'out'", "'boolean'", "'for'", "'string'", 
+                     "'continue'", "'do'", "'function'", "'true'", "'of'", 
+                     "'else'", "'if'", "'while'", "'inherit'", "'+'", "'-'", 
+                     "'*'", "'/'", "'%'", "'!'", "'&&'", "'||'", "'=='", 
+                     "'!='", "'<'", "'<='", "'>'", "'>='", "'::'", "'('", 
+                     "')'", "'['", "']'", "'.'", "','", "';'", "':'", "'{'", 
+                     "'}'", "'='" ]
 
     symbolicNames = [ "<INVALID>", "COMMENT_C", "COMMENT_CPLUS", "INTLIT", 
-                      "FLOATLIT", "BOOLLIT", "AUTO", "FALSE", "INTERGER", 
-                      "VOID", "ARRAY", "BREAK", "FLOAT", "RETURN", "OUT", 
-                      "BOOLEAN", "FOR", "STRING", "CONTINUE", "DO", "FUNCTION", 
-                      "TRUE", "OF", "ELSE", "IF", "WHILE", "INHERIT", "ADDOP", 
-                      "SUBOP", "MULOP", "DIV", "MOD", "NOT", "AND", "OR", 
-                      "EQUAL", "NOT_EQUAL", "LESS", "LESS_OR_EQUAL", "GREATER", 
-                      "GREATER_OR_EQUAL", "DOUBLE_COLON", "LB", "RB", "LSB", 
-                      "RSB", "DOT", "COMMA", "SEMICOLON", "COLON", "LP", 
-                      "RP", "ASSIGN", "ID", "WS", "ERROR_CHAR", "UNCLOSE_STRING", 
+                      "FLOATLIT", "BOOLLIT", "STRING_LIT", "AUTO", "FALSE", 
+                      "INTERGER", "VOID", "ARRAY", "BREAK", "FLOAT", "RETURN", 
+                      "OUT", "BOOLEAN", "FOR", "STRING", "CONTINUE", "DO", 
+                      "FUNCTION", "TRUE", "OF", "ELSE", "IF", "WHILE", "INHERIT", 
+                      "ADDOP", "SUBOP", "MULOP", "DIV", "MOD", "NOT", "AND", 
+                      "OR", "EQUAL", "NOT_EQUAL", "LESS", "LESS_OR_EQUAL", 
+                      "GREATER", "GREATER_OR_EQUAL", "DOUBLE_COLON", "LB", 
+                      "RB", "LSB", "RSB", "DOT", "COMMA", "SEMICOLON", "COLON", 
+                      "LP", "RP", "ASSIGN", "ID", "WS", "ERROR_CHAR", "UNCLOSE_STRING", 
                       "ILLEGAL_ESCAPE" ]
 
     RULE_program = 0
@@ -59,58 +60,59 @@ class MT22Parser ( Parser ):
     INTLIT=3
     FLOATLIT=4
     BOOLLIT=5
-    AUTO=6
-    FALSE=7
-    INTERGER=8
-    VOID=9
-    ARRAY=10
-    BREAK=11
-    FLOAT=12
-    RETURN=13
-    OUT=14
-    BOOLEAN=15
-    FOR=16
-    STRING=17
-    CONTINUE=18
-    DO=19
-    FUNCTION=20
-    TRUE=21
-    OF=22
-    ELSE=23
-    IF=24
-    WHILE=25
-    INHERIT=26
-    ADDOP=27
-    SUBOP=28
-    MULOP=29
-    DIV=30
-    MOD=31
-    NOT=32
-    AND=33
-    OR=34
-    EQUAL=35
-    NOT_EQUAL=36
-    LESS=37
-    LESS_OR_EQUAL=38
-    GREATER=39
-    GREATER_OR_EQUAL=40
-    DOUBLE_COLON=41
-    LB=42
-    RB=43
-    LSB=44
-    RSB=45
-    DOT=46
-    COMMA=47
-    SEMICOLON=48
-    COLON=49
-    LP=50
-    RP=51
-    ASSIGN=52
-    ID=53
-    WS=54
-    ERROR_CHAR=55
-    UNCLOSE_STRING=56
-    ILLEGAL_ESCAPE=57
+    STRING_LIT=6
+    AUTO=7
+    FALSE=8
+    INTERGER=9
+    VOID=10
+    ARRAY=11
+    BREAK=12
+    FLOAT=13
+    RETURN=14
+    OUT=15
+    BOOLEAN=16
+    FOR=17
+    STRING=18
+    CONTINUE=19
+    DO=20
+    FUNCTION=21
+    TRUE=22
+    OF=23
+    ELSE=24
+    IF=25
+    WHILE=26
+    INHERIT=27
+    ADDOP=28
+    SUBOP=29
+    MULOP=30
+    DIV=31
+    MOD=32
+    NOT=33
+    AND=34
+    OR=35
+    EQUAL=36
+    NOT_EQUAL=37
+    LESS=38
+    LESS_OR_EQUAL=39
+    GREATER=40
+    GREATER_OR_EQUAL=41
+    DOUBLE_COLON=42
+    LB=43
+    RB=44
+    LSB=45
+    RSB=46
+    DOT=47
+    COMMA=48
+    SEMICOLON=49
+    COLON=50
+    LP=51
+    RP=52
+    ASSIGN=53
+    ID=54
+    WS=55
+    ERROR_CHAR=56
+    UNCLOSE_STRING=57
+    ILLEGAL_ESCAPE=58
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
