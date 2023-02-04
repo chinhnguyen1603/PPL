@@ -162,3 +162,15 @@ class LexerSuite(unittest.TestCase):
    #test BOOLLIT
     def test_bool1(self):
         self.assertTrue(TestLexer.test("true false","true,false,<EOF>",155))  
+
+   #test FLOATLIT
+    def test_float1(self):
+        self.assertTrue(TestLexer.test("1_234_56.345 1_234_56.3_45","123456.345,123456.3,_45,<EOF>",156))         
+    def test_float2(self):                                      
+        self.assertTrue(TestLexer.test("0.5 00.1232 1234..345","0.5,0,0.1232,1234.,.345,<EOF>",157)) 
+    def test_float3(self):                                      
+        self.assertTrue(TestLexer.test("1.2e3 1.2E3 1_234.4E+123 ","1.2e3,1.2E3,1234.4E+123,<EOF>",158)) 
+    def test_float4(self):
+        self.assertTrue(TestLexer.test("123456. .123456 .123456E-10","123456.,.123456,.123456,E,-,10,<EOF>",159)) 
+    def test_float5(self):
+        self.assertTrue(TestLexer.test("7E-10 8e+12 1.e+2","7E-10,8e+12,1.,e,+,2,<EOF>",160))                                 

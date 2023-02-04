@@ -21,8 +21,20 @@ COMMENT_CPLUS   : '//' ~ [\r\n]* -> skip ;
 
 //Literal
 fragment INT: [1-9]([0-9]*'_'[0-9]+)*| '0' | [1-9][0-9]*;
+fragment EXPONENT: [eE] SIGN? DIGIT+ ;
+fragment SIGN: [+-] ;
+
 INTLIT: INT {
 	self.text = (self.text).replace("_", "") 
+};
+
+fragment FLOATFRAG: INT '.' DIGIT* //Decimal part absent 
+        | INT? '.' DIGIT+ //Integer part absent or not 
+		| INT EXPONENT //7E-10
+		| INT '.' DIGIT+ EXPONENT //no part absent
+        ;
+FLOATLIT: FLOATFRAG{
+    self.text = (self.text).replace("_", "") 
 };
 BOOLLIT: TRUE | FALSE ;
 
