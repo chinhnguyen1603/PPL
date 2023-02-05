@@ -1,4 +1,4 @@
-/*-------------- 1811622 Nguyen Ngoc Chinh---------------------*/
+/*-------------- Student id: 1811622 Nguyen Ngoc Chinh---------------------*/
 
 grammar MT22;
 
@@ -10,9 +10,22 @@ options{
 	language=Python3;
 }
 
-program:  EOF ;
 /*-------------- Parse ---------------------*/
+/*-------------- Parse ---------------------*/
+/*-------------- Parse ---------------------*/
+program:  var_decl* func_decl* EOF ;
+var_decl: id_list COLON INTERGER (ASSIGN INTLIT (COMMA INTLIT)*)* SEMICOLON;
+id_list: ID (COMMA ID)*;
 
+//Function declaration
+func_decl: 'func_decl';
+
+
+
+
+
+/*-------------- Lexer ---------------------*/
+/*-------------- Lexer ---------------------*/
 /*-------------- Lexer ---------------------*/
 
 //comment
@@ -39,7 +52,7 @@ FLOATLIT: FLOATFRAG{
     self.text = (self.text).replace("_", "") 
 };
 
-//Boolean_Literal
+//Boolean_Literal -> of Parse
 BOOLLIT: TRUE | FALSE ;
 
 //String_Literal
@@ -50,6 +63,7 @@ fragment STRING_CHAR: ~[\b\t\n\f\r"'\\] | ESC_SEQ ;
 fragment ESC_SEQ: '\\' [btnfr"'\\] ; // tức là \b nhưng phải gõ \\b để loại trừ \đầu
 fragment ESC_ILLEGAL: '\\' ~[btnfr"'\\] | ~'\\' ;
 
+//Array_Literal -> of Parse
 
 //keyword
 AUTO: 'auto';
