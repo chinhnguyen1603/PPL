@@ -1,1 +1,1 @@
-abc123,Error Token $
+a,==,True,||,False,<EOF>

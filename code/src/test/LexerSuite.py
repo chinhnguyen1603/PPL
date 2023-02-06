@@ -177,25 +177,49 @@ class LexerSuite(unittest.TestCase):
 
     #test STRINGLIT
     def test_string1(self):
-        self.assertTrue(TestLexer.test("""\" \\"This is a string containing tab \t \\"\"""","""  \"This is a string containing tab 	 \",<EOF>""",161)) 
+        self.assertTrue(TestLexer.test("""\"This is a string containing tab\"""","This is a string containing tab,<EOF>",161)) 
     def test_string2(self):
         self.assertTrue(TestLexer.test("\"ahihi\"","ahihi,<EOF>",162)) 
     def test_string3(self):
         self.assertTrue(TestLexer.test("\"This is a string containing tab \t\"","This is a string containing tab \t,<EOF>",163))
     def test_string4(self):   
-        self.assertTrue(TestLexer.test(",=:abc",",,=,:,abc,<EOF>",164))
+        self.assertTrue(TestLexer.test("\"This is a string containing tab\\t\"","This is a string containing tab\\t,<EOF>",164))
     def test_string5(self):
-        self.assertTrue(TestLexer.test("{c1d_}","{,c1d_,},<EOF>",165))
-    def test_string6(self):                 
-        self.assertTrue(TestLexer.test("[_12ds]","[,_12ds,],<EOF>",166))
+        self.assertTrue(TestLexer.test(""" \"He asked me: \\"Where is John?\\"\" ""","""He asked me: \\"Where is John?\\",<EOF>""",165))
+    def test_string6(self):                                                           
+        self.assertTrue(TestLexer.test("\"abc\" 0 \"12ab\\fc0.1\"","abc,0,12ab\\fc0.1,<EOF>",166))
     def test_string7(self):
-        self.assertTrue(TestLexer.test(":=::",":,=,::,<EOF>",167))
-    def test_string8(self):
-        self.assertTrue(TestLexer.test("((~","(,(,Error Token ~",168))
-    def test_string9(self):                            
-        self.assertTrue(TestLexer.test("abc@","abc,Error Token @",169))
+        self.assertTrue(TestLexer.test("\"(IFq+lq(\"IhK6we GdvS{(}","(IFq+lq(,IhK6we,GdvS,{,(,},<EOF>",167))
+    def test_string8(self):                                            
+        self.assertTrue(TestLexer.test("\"((~\"","((~,<EOF>",168))
+    def test_string9(self):                           
+        self.assertTrue(TestLexer.test("\"abc@\"","abc@,<EOF>",169))
     def test_string10(self):
-        self.assertTrue(TestLexer.test("==#","==,Error Token #",170))      
+        self.assertTrue(TestLexer.test("""\"((~\\"\" ""","""((~\\",<EOF>""",170))      
+
+    #test Unclose String
+    def test_uncls1(self):
+        self.assertTrue(TestLexer.test("\"chinhnguyen123","Unclosed String: chinhnguyen123",171))         
+    def test_uncls12(self):                                      
+        self.assertTrue(TestLexer.test("""\"((~\\" ""","""Unclosed String: ((~\\" """,172)) 
+    def test_uncls13(self):                                      
+        self.assertTrue(TestLexer.test("\"acnv \" \"abc","acnv ,Unclosed String: abc",173)) 
+    def test_uncls14(self):
+        self.assertTrue(TestLexer.test("123456. .123456 .123456E-10","123456.,.123456,.123456,E,-,10,<EOF>",174)) 
+    def test_uncls15(self):
+        self.assertTrue(TestLexer.test("7E-10 8e+12 1.e+2","7E-10,8e+12,1.e+2,<EOF>",175))  
+ 
+    #test iilegal String
+    def test_iilegal1(self):
+        self.assertTrue(TestLexer.test(""" \"abc\\h def\"  ""","""Illegal Escape In String: abc\\h""",176))         
+    def test_iilegal2(self):                                      
+        self.assertTrue(TestLexer.test("\"aabbcc\pabc\"","Illegal Escape In String: aabbcc\p",176)) #bắt tới \p gặp illegal nên vứt abc ở sau 
+    def test_iilegal3(self):                                      
+        self.assertTrue(TestLexer.test("1.2e3 1.2E3 1_234.4E+123 ","1.2e3,1.2E3,1234.4E+123,<EOF>",177)) 
+    def test_iilegal4(self):
+        self.assertTrue(TestLexer.test("123456. .123456 .123456E-10","123456.,.123456,.123456,E,-,10,<EOF>",178)) 
+    def test_iilegal5(self):
+        self.assertTrue(TestLexer.test("7E-10 8e+12 1.e+2","7E-10,8e+12,1.e+2,<EOF>",179))  
 
     #test mixture     
     def test_mix1(self):
@@ -211,13 +235,13 @@ class LexerSuite(unittest.TestCase):
     def test_mix6(self):                 
         self.assertTrue(TestLexer.test("00E+10","0,0E+10,<EOF>",186))
     def test_mix7(self):
-        self.assertTrue(TestLexer.test("abcd\nef\nhihiVx%%^&&","abcd,ef,hihiVx,%,%,Error Token ^",187))
+        self.assertTrue(TestLexer.test("""{1.3,4}""","""{,1.3,,,4,},<EOF>""",187))
     def test_mix8(self):
-        self.assertTrue(TestLexer.test("\\","Error Token \\",188))
-    def test_mix9(self):                            
-        self.assertTrue(TestLexer.test("abc123$","abc123,Error Token $",189))
+        self.assertTrue(TestLexer.test("-0.e21 02.e-10  121E+4 0.E09 4060E12","-,0.e21,0,2.e-10,121E+4,0.E09,4060E12,<EOF>",188))
+    def test_mix9(self):                                                       
+        self.assertTrue(TestLexer.test("a == True || False","a,==,True,||,False,<EOF>",189))
     def test_mix10(self):
-        self.assertTrue(TestLexer.test("==!=#","==,!=,Error Token #",190))    
+        self.assertTrue(TestLexer.test("+-=-+!","+,-,=,-,+,!,<EOF>",190))    
 
     #test Error Token        
     def test_error1(self):

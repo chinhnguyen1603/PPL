@@ -1,1 +1,1 @@
-abcd,ef,hihiVx,%,%,Error Token ^
+{,1.3,,,4,},<EOF>
