@@ -18,7 +18,7 @@ var_decl: id_list COLON INTERGER (ASSIGN INTLIT (COMMA INTLIT)*)* SEMICOLON;
 id_list: ID (COMMA ID)*;
 
 //Function declaration
-func_decl: 'func_decl';
+func_decl: FUNCTION;
 
 
 
@@ -43,7 +43,7 @@ INTLIT: INT {
 };
 
 //Float_Literal
-fragment FLOATFRAG: INT '.' DIGIT* //Decimal part absent 
+fragment FLOATFRAG: INT '.' DIGIT* EXPONENT* //Decimal part absent 
         | INT? '.' DIGIT+ //Integer part absent or not 
 		| INT EXPONENT //7E-10
 		| INT '.' DIGIT+ EXPONENT //no part absent
@@ -59,8 +59,8 @@ BOOLLIT: TRUE | FALSE ;
 STRING_LIT: '"' STRING_CHAR* '"'{
 	self.text = (self.text)[1:-1]
 };
-fragment STRING_CHAR: ~[\b\t\n\f\r"'\\] | ESC_SEQ ;
-fragment ESC_SEQ: '\\' [btnfr"'\\] ; // tức là \b nhưng phải gõ \\b để loại trừ \đầu
+fragment STRING_CHAR: ~["\\] | ESC_SEQ |  '\\"';
+fragment ESC_SEQ: '\\' [btnfr'\\] ; // tức là \b nhưng phải gõ \\b để loại trừ \đầu
 fragment ESC_ILLEGAL: '\\' ~[btnfr"'\\] | ~'\\' ;
 
 //Array_Literal -> of Parse
@@ -146,3 +146,4 @@ ILLEGAL_ESCAPE: '"' STRING_CHAR* ESC_ILLEGAL
 		raise IllegalEscape(self.text[1:])
 	}
 	;
+	

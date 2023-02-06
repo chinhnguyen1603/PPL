@@ -11,7 +11,7 @@ else:
 
 def serializedATN():
     with StringIO() as buf:
-        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3=")
+        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3<")
         buf.write("\66\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\3\2\7\2\f\n\2\f\2")
         buf.write("\16\2\17\13\2\3\2\7\2\22\n\2\f\2\16\2\25\13\2\3\2\3\2")
         buf.write("\3\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3 \n\3\f\3\16\3#\13\3\7")
@@ -22,14 +22,14 @@ def serializedATN():
         buf.write("\2\16\23\3\2\2\2\17\r\3\2\2\2\20\22\5\b\5\2\21\20\3\2")
         buf.write("\2\2\22\25\3\2\2\2\23\21\3\2\2\2\23\24\3\2\2\2\24\26\3")
         buf.write("\2\2\2\25\23\3\2\2\2\26\27\7\2\2\3\27\3\3\2\2\2\30\31")
-        buf.write("\5\6\4\2\31\32\7\65\2\2\32&\7\f\2\2\33\34\78\2\2\34!\7")
-        buf.write("\6\2\2\35\36\7\63\2\2\36 \7\6\2\2\37\35\3\2\2\2 #\3\2")
-        buf.write("\2\2!\37\3\2\2\2!\"\3\2\2\2\"%\3\2\2\2#!\3\2\2\2$\33\3")
-        buf.write("\2\2\2%(\3\2\2\2&$\3\2\2\2&\'\3\2\2\2\')\3\2\2\2(&\3\2")
-        buf.write("\2\2)*\7\64\2\2*\5\3\2\2\2+\60\79\2\2,-\7\63\2\2-/\79")
-        buf.write("\2\2.,\3\2\2\2/\62\3\2\2\2\60.\3\2\2\2\60\61\3\2\2\2\61")
-        buf.write("\7\3\2\2\2\62\60\3\2\2\2\63\64\7\3\2\2\64\t\3\2\2\2\7")
-        buf.write("\r\23!&\60")
+        buf.write("\5\6\4\2\31\32\7\64\2\2\32&\7\13\2\2\33\34\7\67\2\2\34")
+        buf.write("!\7\5\2\2\35\36\7\62\2\2\36 \7\5\2\2\37\35\3\2\2\2 #\3")
+        buf.write("\2\2\2!\37\3\2\2\2!\"\3\2\2\2\"%\3\2\2\2#!\3\2\2\2$\33")
+        buf.write("\3\2\2\2%(\3\2\2\2&$\3\2\2\2&\'\3\2\2\2\')\3\2\2\2(&\3")
+        buf.write("\2\2\2)*\7\63\2\2*\5\3\2\2\2+\60\78\2\2,-\7\62\2\2-/\7")
+        buf.write("8\2\2.,\3\2\2\2/\62\3\2\2\2\60.\3\2\2\2\60\61\3\2\2\2")
+        buf.write("\61\7\3\2\2\2\62\60\3\2\2\2\63\64\7\27\2\2\64\t\3\2\2")
+        buf.write("\2\7\r\23!&\60")
         return buf.getvalue()
 
 
@@ -43,28 +43,28 @@ class MT22Parser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'func_decl'", "<INVALID>", "<INVALID>", 
-                     "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                     "'auto'", "'false'", "'integer'", "'void'", "'array'", 
-                     "'break'", "'float'", "'return'", "'out'", "'boolean'", 
-                     "'for'", "'string'", "'continue'", "'do'", "'function'", 
-                     "'true'", "'of'", "'else'", "'if'", "'while'", "'inherit'", 
-                     "'+'", "'-'", "'*'", "'/'", "'%'", "'!'", "'&&'", "'||'", 
-                     "'=='", "'!='", "'<'", "'<='", "'>'", "'>='", "'::'", 
-                     "'('", "')'", "'['", "']'", "'.'", "','", "';'", "':'", 
-                     "'{'", "'}'", "'='" ]
+    literalNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
+                     "<INVALID>", "<INVALID>", "<INVALID>", "'auto'", "'false'", 
+                     "'integer'", "'void'", "'array'", "'break'", "'float'", 
+                     "'return'", "'out'", "'boolean'", "'for'", "'string'", 
+                     "'continue'", "'do'", "'function'", "'true'", "'of'", 
+                     "'else'", "'if'", "'while'", "'inherit'", "'+'", "'-'", 
+                     "'*'", "'/'", "'%'", "'!'", "'&&'", "'||'", "'=='", 
+                     "'!='", "'<'", "'<='", "'>'", "'>='", "'::'", "'('", 
+                     "')'", "'['", "']'", "'.'", "','", "';'", "':'", "'{'", 
+                     "'}'", "'='" ]
 
-    symbolicNames = [ "<INVALID>", "<INVALID>", "COMMENT_C", "COMMENT_CPLUS", 
-                      "INTLIT", "FLOATLIT", "BOOLLIT", "STRING_LIT", "AUTO", 
-                      "FALSE", "INTERGER", "VOID", "ARRAY", "BREAK", "FLOAT", 
-                      "RETURN", "OUT", "BOOLEAN", "FOR", "STRING", "CONTINUE", 
-                      "DO", "FUNCTION", "TRUE", "OF", "ELSE", "IF", "WHILE", 
-                      "INHERIT", "ADDOP", "SUBOP", "MULOP", "DIV", "MOD", 
-                      "NOT", "AND", "OR", "EQUAL", "NOT_EQUAL", "LESS", 
-                      "LESS_OR_EQUAL", "GREATER", "GREATER_OR_EQUAL", "DOUBLE_COLON", 
-                      "LB", "RB", "LSB", "RSB", "DOT", "COMMA", "SEMICOLON", 
-                      "COLON", "LP", "RP", "ASSIGN", "ID", "WS", "ERROR_CHAR", 
-                      "UNCLOSE_STRING", "ILLEGAL_ESCAPE" ]
+    symbolicNames = [ "<INVALID>", "COMMENT_C", "COMMENT_CPLUS", "INTLIT", 
+                      "FLOATLIT", "BOOLLIT", "STRING_LIT", "AUTO", "FALSE", 
+                      "INTERGER", "VOID", "ARRAY", "BREAK", "FLOAT", "RETURN", 
+                      "OUT", "BOOLEAN", "FOR", "STRING", "CONTINUE", "DO", 
+                      "FUNCTION", "TRUE", "OF", "ELSE", "IF", "WHILE", "INHERIT", 
+                      "ADDOP", "SUBOP", "MULOP", "DIV", "MOD", "NOT", "AND", 
+                      "OR", "EQUAL", "NOT_EQUAL", "LESS", "LESS_OR_EQUAL", 
+                      "GREATER", "GREATER_OR_EQUAL", "DOUBLE_COLON", "LB", 
+                      "RB", "LSB", "RSB", "DOT", "COMMA", "SEMICOLON", "COLON", 
+                      "LP", "RP", "ASSIGN", "ID", "WS", "ERROR_CHAR", "UNCLOSE_STRING", 
+                      "ILLEGAL_ESCAPE" ]
 
     RULE_program = 0
     RULE_var_decl = 1
@@ -74,65 +74,64 @@ class MT22Parser ( Parser ):
     ruleNames =  [ "program", "var_decl", "id_list", "func_decl" ]
 
     EOF = Token.EOF
-    T__0=1
-    COMMENT_C=2
-    COMMENT_CPLUS=3
-    INTLIT=4
-    FLOATLIT=5
-    BOOLLIT=6
-    STRING_LIT=7
-    AUTO=8
-    FALSE=9
-    INTERGER=10
-    VOID=11
-    ARRAY=12
-    BREAK=13
-    FLOAT=14
-    RETURN=15
-    OUT=16
-    BOOLEAN=17
-    FOR=18
-    STRING=19
-    CONTINUE=20
-    DO=21
-    FUNCTION=22
-    TRUE=23
-    OF=24
-    ELSE=25
-    IF=26
-    WHILE=27
-    INHERIT=28
-    ADDOP=29
-    SUBOP=30
-    MULOP=31
-    DIV=32
-    MOD=33
-    NOT=34
-    AND=35
-    OR=36
-    EQUAL=37
-    NOT_EQUAL=38
-    LESS=39
-    LESS_OR_EQUAL=40
-    GREATER=41
-    GREATER_OR_EQUAL=42
-    DOUBLE_COLON=43
-    LB=44
-    RB=45
-    LSB=46
-    RSB=47
-    DOT=48
-    COMMA=49
-    SEMICOLON=50
-    COLON=51
-    LP=52
-    RP=53
-    ASSIGN=54
-    ID=55
-    WS=56
-    ERROR_CHAR=57
-    UNCLOSE_STRING=58
-    ILLEGAL_ESCAPE=59
+    COMMENT_C=1
+    COMMENT_CPLUS=2
+    INTLIT=3
+    FLOATLIT=4
+    BOOLLIT=5
+    STRING_LIT=6
+    AUTO=7
+    FALSE=8
+    INTERGER=9
+    VOID=10
+    ARRAY=11
+    BREAK=12
+    FLOAT=13
+    RETURN=14
+    OUT=15
+    BOOLEAN=16
+    FOR=17
+    STRING=18
+    CONTINUE=19
+    DO=20
+    FUNCTION=21
+    TRUE=22
+    OF=23
+    ELSE=24
+    IF=25
+    WHILE=26
+    INHERIT=27
+    ADDOP=28
+    SUBOP=29
+    MULOP=30
+    DIV=31
+    MOD=32
+    NOT=33
+    AND=34
+    OR=35
+    EQUAL=36
+    NOT_EQUAL=37
+    LESS=38
+    LESS_OR_EQUAL=39
+    GREATER=40
+    GREATER_OR_EQUAL=41
+    DOUBLE_COLON=42
+    LB=43
+    RB=44
+    LSB=45
+    RSB=46
+    DOT=47
+    COMMA=48
+    SEMICOLON=49
+    COLON=50
+    LP=51
+    RP=52
+    ASSIGN=53
+    ID=54
+    WS=55
+    ERROR_CHAR=56
+    UNCLOSE_STRING=57
+    ILLEGAL_ESCAPE=58
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -193,7 +192,7 @@ class MT22Parser ( Parser ):
             self.state = 17
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==MT22Parser.T__0:
+            while _la==MT22Parser.FUNCTION:
                 self.state = 14
                 self.func_decl()
                 self.state = 19
@@ -365,6 +364,8 @@ class MT22Parser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
+        def FUNCTION(self):
+            return self.getToken(MT22Parser.FUNCTION, 0)
 
         def getRuleIndex(self):
             return MT22Parser.RULE_func_decl
@@ -379,7 +380,7 @@ class MT22Parser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 49
-            self.match(MT22Parser.T__0)
+            self.match(MT22Parser.FUNCTION)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
