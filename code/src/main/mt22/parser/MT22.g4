@@ -13,10 +13,27 @@ options{
 /*-------------- Parse ---------------------*/
 /*-------------- Parse ---------------------*/
 /*-------------- Parse ---------------------*/
-program:  var_decl* func_decl* EOF ;
-var_decl: id_list COLON INTERGER (ASSIGN INTLIT (COMMA INTLIT)*)* SEMICOLON;
+program:  (var_decl|func_decl)+ EOF ;
+var_decl: global_var_decl | local_var_decl | parameter_of_func;
+global_var_decl: id_list COLON typ (ASSIGN list_expr)? SEMICOLON;
+local_var_decl: id_list COLON typ (ASSIGN list_expr)? SEMICOLON;
+parameter_of_func: INHERIT? OUT? ID COLON typ;
+list_expr: expr (COMMA expr)*;
+expr: INT_LIT;
 id_list: ID (COMMA ID)*;
 
+boolean_literal: TRUE | FALSE ;
+literal: INT_LIT | FLOAT_LIT | STRING_LIT | boolean_literal | array_literal;
+
+//type_declaration
+atomic_typ: boolean_literal | INTERGER | FLOAT | STRING;
+array_literal: ARRAY LP INT_LIT (',' INT_LIT)* RP OF atomic_typ; //array [2, 3] of integer
+//all type of system
+typ: atomic_typ 
+   | array_literal
+   | VOID
+   | AUTO
+   ; 
 //Function declaration
 func_decl: FUNCTION;
 
@@ -38,7 +55,7 @@ fragment EXPONENT: [eE] SIGN? DIGIT+ ;
 fragment SIGN: [+-] ;
 
 //Integer_Literal
-INTLIT: INT {
+INT_LIT: INT {
 	self.text = (self.text).replace("_", "") 
 };
 
@@ -48,12 +65,12 @@ fragment FLOATFRAG: INT '.' DIGIT* EXPONENT* //Decimal part absent
 		| INT EXPONENT //7E-10
 		| INT '.' DIGIT+ EXPONENT //no part absent
         ;
-FLOATLIT: FLOATFRAG{
+FLOAT_LIT: FLOATFRAG{
     self.text = (self.text).replace("_", "") 
 };
 
 //Boolean_Literal -> of Parse
-BOOLLIT: TRUE | FALSE ;
+//BOOLLIT: TRUE | FALSE ;
 
 //String_Literal
 STRING_LIT: '"' STRING_CHAR* '"'{
@@ -146,4 +163,3 @@ ILLEGAL_ESCAPE: '"' STRING_CHAR* ESC_ILLEGAL
 		raise IllegalEscape(self.text[1:])
 	}
 	;
-	

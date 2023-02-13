@@ -19,8 +19,58 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MT22Parser#global_var_decl.
+    def visitGlobal_var_decl(self, ctx:MT22Parser.Global_var_declContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#local_var_decl.
+    def visitLocal_var_decl(self, ctx:MT22Parser.Local_var_declContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#parameter_of_func.
+    def visitParameter_of_func(self, ctx:MT22Parser.Parameter_of_funcContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#list_expr.
+    def visitList_expr(self, ctx:MT22Parser.List_exprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#expr.
+    def visitExpr(self, ctx:MT22Parser.ExprContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MT22Parser#id_list.
     def visitId_list(self, ctx:MT22Parser.Id_listContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#boolean_literal.
+    def visitBoolean_literal(self, ctx:MT22Parser.Boolean_literalContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#literal.
+    def visitLiteral(self, ctx:MT22Parser.LiteralContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#atomic_typ.
+    def visitAtomic_typ(self, ctx:MT22Parser.Atomic_typContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#array_literal.
+    def visitArray_literal(self, ctx:MT22Parser.Array_literalContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#typ.
+    def visitTyp(self, ctx:MT22Parser.TypContext):
         return self.visitChildren(ctx)
 
 

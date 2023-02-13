@@ -207,7 +207,7 @@ class LexerSuite(unittest.TestCase):
     def test_uncls14(self):
         self.assertTrue(TestLexer.test("123456. .123456 .123456E-10","123456.,.123456,.123456,E,-,10,<EOF>",174)) 
     def test_uncls15(self):
-        self.assertTrue(TestLexer.test("7E-10 8e+12 1.e+2","7E-10,8e+12,1.e+2,<EOF>",175))  
+        self.assertTrue(TestLexer.test("truefalse","truefalse,<EOF>",175))  
  
     #test iilegal String
     def test_iilegal1(self):
