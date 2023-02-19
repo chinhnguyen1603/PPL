@@ -14,28 +14,85 @@ options{
 /*-------------- Parse ---------------------*/
 /*-------------- Parse ---------------------*/
 program:  (var_decl|func_decl)+ EOF ;
+
+//variable declarations
 var_decl: global_var_decl | local_var_decl | parameter_of_func;
-global_var_decl: id_list COLON typ (ASSIGN list_expr)? SEMICOLON;
+global_var_decl: id_list COLON typ (ASSIGN list_expr)? SEMICOLON 
+{
+if (len($id_list.text.split(',')) != len($list_expr.text.split(','))):
+   offendingSymbol = self._ctx.start
+   line = offendingSymbol.line
+   column = self.getCurrentToken().stop
+   offendingSymbol.text = ";"
+   listener = self._listeners[-1]
+   listener.syntaxError(self, offendingSymbol, line, column, "", None)
+};
 local_var_decl: id_list COLON typ (ASSIGN list_expr)? SEMICOLON;
 parameter_of_func: INHERIT? OUT? ID COLON typ;
+list_parameter: parameter_of_func (COMMA parameter_of_func)* ;
+
+//function declarations
+func_decl: func_prototype func_body;
+func_prototype: ID COLON FUNCTION typ LB list_parameter RB (INHERIT ID)*;
+func_body: block_decl;
+block_decl: LP (var_decl*|list_stmt) RP;
+
+
+//expression
 list_expr: expr (COMMA expr)*;
 expr: INT_LIT;
 id_list: ID (COMMA ID)*;
 
+//operator
+operator: string_operator // low est
+		| relational_operator
+        | logical_first_operator //&&, ||
+        | adding_operator //+ -
+		| multiplying_operator
+        | logical_second_operator //!
+		| sign_operator // -
+		| index_operator //high est
+		;
+string_operator: DOUBLE_COLON;
+relational_operator: EQUAL 
+                   | NOT_EQUAL
+				   | LESS
+				   | GREATER
+				   | LESS_OR_EQUAL
+				   | GREATER_OR_EQUAL
+				   ;
+logical_first_operator: AND
+                      | OR
+					  ;
+adding_operator: ADDOP
+               | SUBOP
+			   ;
+multiplying_operator: MULOP
+                    | DIV
+					| MOD
+					;			   					  				    
+logical_second_operator: NOT;
+sign_operator: SUBOP;
+index_operator: LSB COMMA RSB;
+
+
+//statement
+stmt_decl: FUNCTION;
+list_stmt: stmt_decl*;
 boolean_literal: TRUE | FALSE ;
 literal: INT_LIT | FLOAT_LIT | STRING_LIT | boolean_literal | array_literal;
 
 //type_declaration
 atomic_typ: boolean_literal | INTERGER | FLOAT | STRING;
-array_literal: ARRAY LP INT_LIT (',' INT_LIT)* RP OF atomic_typ; //array [2, 3] of integer
+index_array: LP literal (',' literal)* RP; //{1, 5, 7, 12} or  {"Kangxi", "Yongzheng", "Qianlong"}
+array_literal: ARRAY LSB literal (',' literal)* RSB OF atomic_typ; //array [2, 3] of integer
 //all type of system
 typ: atomic_typ 
    | array_literal
    | VOID
    | AUTO
    ; 
-//Function declaration
-func_decl: FUNCTION;
+
 
 
 
