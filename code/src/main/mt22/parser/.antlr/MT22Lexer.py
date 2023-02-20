@@ -263,7 +263,7 @@ class MT22Lexer(Lexer):
     BOOLEAN = 15
     FOR = 16
     STRING = 17
-    CONTINUE = 18
+    CONTINUE_MT = 18
     DO = 19
     FUNCTION = 20
     TRUE = 21
@@ -320,8 +320,8 @@ class MT22Lexer(Lexer):
     symbolicNames = [ "<INVALID>",
             "COMMENT_C", "COMMENT_CPLUS", "INT_LIT", "FLOAT_LIT", "STRING_LIT", 
             "AUTO", "FALSE", "INTERGER", "VOID", "ARRAY", "BREAK", "FLOAT", 
-            "RETURN", "OUT", "BOOLEAN", "FOR", "STRING", "CONTINUE", "DO", 
-            "FUNCTION", "TRUE", "OF", "ELSE", "IF", "WHILE", "INHERIT", 
+            "RETURN", "OUT", "BOOLEAN", "FOR", "STRING", "CONTINUE_MT", 
+            "DO", "FUNCTION", "TRUE", "OF", "ELSE", "IF", "WHILE", "INHERIT", 
             "ADDOP", "SUBOP", "MULOP", "DIV", "MOD", "NOT", "AND", "OR", 
             "EQUAL", "NOT_EQUAL", "LESS", "LESS_OR_EQUAL", "GREATER", "GREATER_OR_EQUAL", 
             "DOUBLE_COLON", "LB", "RB", "LSB", "RSB", "DOT", "COMMA", "SEMICOLON", 
@@ -332,7 +332,7 @@ class MT22Lexer(Lexer):
                   "INT_LIT", "FLOATFRAG", "FLOAT_LIT", "STRING_LIT", "STRING_CHAR", 
                   "ESC_SEQ", "ESC_ILLEGAL", "AUTO", "FALSE", "INTERGER", 
                   "VOID", "ARRAY", "BREAK", "FLOAT", "RETURN", "OUT", "BOOLEAN", 
-                  "FOR", "STRING", "CONTINUE", "DO", "FUNCTION", "TRUE", 
+                  "FOR", "STRING", "CONTINUE_MT", "DO", "FUNCTION", "TRUE", 
                   "OF", "ELSE", "IF", "WHILE", "INHERIT", "ADDOP", "SUBOP", 
                   "MULOP", "DIV", "MOD", "NOT", "AND", "OR", "EQUAL", "NOT_EQUAL", 
                   "LESS", "LESS_OR_EQUAL", "GREATER", "GREATER_OR_EQUAL", 

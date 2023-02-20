@@ -27,32 +27,62 @@ if (len($id_list.text.split(',')) != len($list_expr.text.split(','))):
    listener = self._listeners[-1]
    listener.syntaxError(self, offendingSymbol, line, column, "", None)
 };
-local_var_decl: id_list COLON typ (ASSIGN list_expr)? SEMICOLON;
+local_var_decl: id_list COLON typ (ASSIGN list_expr)? SEMICOLON{
+if (len($id_list.text.split(',')) != len($list_expr.text.split(','))):
+   offendingSymbol = self._ctx.start
+   line = offendingSymbol.line
+   column = self.getCurrentToken().stop
+   offendingSymbol.text = ";"
+   listener = self._listeners[-1]
+   listener.syntaxError(self, offendingSymbol, line, column, "", None)
+};
 parameter_of_func: INHERIT? OUT? ID COLON typ;
 list_parameter: parameter_of_func (COMMA parameter_of_func)* ;
+id_list: ID (COMMA ID)*;
 
 //function declarations
 func_decl: func_prototype func_body;
-func_prototype: ID COLON FUNCTION typ LB list_parameter RB (INHERIT ID)*;
-func_body: block_decl;
-block_decl: LP (var_decl*|list_stmt) RP;
+func_prototype: ID COLON FUNCTION typ LB list_parameter* RB (INHERIT ID)*;
+func_body: block_stmt;
 
 
 //expression
-list_expr: expr (COMMA expr)*;
-expr: INT_LIT;
-id_list: ID (COMMA ID)*;
+list_expr: expression (COMMA expression)*;
+expression: string_expr;
+string_expr: relation_expr string_operator relation_expr //lowest - infix -none
+           | relation_expr
+		   ;
+relation_expr: logical_first_expr relational_operator logical_first_expr  // infix -none
+           |logical_first_expr 
+		   ;
+logical_first_expr: logical_first_expr logical_first_operator adding_expr  // infix - left
+           | adding_expr 
+		   ;
+adding_expr: adding_expr adding_operator multiplying_expr  // infix - left
+           | multiplying_expr
+		   ;
+multiplying_expr: multiplying_expr multiplying_operator logical_second_expr  // infix - left
+           | logical_second_expr 
+		   ;
+logical_second_expr: logical_second_operator sign_expr  // prefix - right
+           | sign_expr
+		   ;
+sign_expr: sign_operator index_expr  // prefix - right
+           | index_expr
+		   ;
+index_expr: index_expr index_operator
+           | operand
+		   ;
+operand
+    : ID
+    | literal
+    | func_call_exp
+    | '(' expression ')' //sub_exp; phải đc ưu tiên tính trước nên có () (biểu thức trong biểu thức: a=exp=>2-exp=>2-(3+4))
+    ;
+
+func_call_exp: ID LB (expression (COMMA expression)*)? RB ;
 
 //operator
-operator: string_operator // low est
-		| relational_operator
-        | logical_first_operator //&&, ||
-        | adding_operator //+ -
-		| multiplying_operator
-        | logical_second_operator //!
-		| sign_operator // -
-		| index_operator //high est
-		;
 string_operator: DOUBLE_COLON;
 relational_operator: EQUAL 
                    | NOT_EQUAL
@@ -73,12 +103,39 @@ multiplying_operator: MULOP
 					;			   					  				    
 logical_second_operator: NOT;
 sign_operator: SUBOP;
-index_operator: LSB COMMA RSB;
+index_operator: LSB expression RSB;
 
 
 //statement
-stmt_decl: FUNCTION;
+stmt_decl: assign_stmt 
+    | if_stmt
+    | for_stmt
+    | while_stmt 
+    | do_while_stmt
+    | break_stmt
+    | continue_stmt
+    | call_stmt
+    | return_stmt
+    ;
+assign_stmt: (scalar_var index_operator?) ASSIGN expression SEMICOLON;
+if_stmt:IF expression list_stmt SEMICOLON? (ELSE list_stmt SEMICOLON?)?;
+break_stmt: BREAK SEMICOLON;
+for_stmt
+    :
+        FOR LB scalar_var ASSIGN expression COMMA expression COMMA expression RB LP
+            list_stmt
+        RP
+    ;
+while_stmt: WHILE LB expression RB LP list_stmt RP ;
+do_while_stmt: DO block_stmt WHILE LB expression RB SEMICOLON;
+call_stmt: func_call_exp SEMICOLON;
+return_stmt: RETURN expression? SEMICOLON;
+continue_stmt: CONTINUE_MT SEMICOLON;
 list_stmt: stmt_decl*;
+
+block_stmt: LP var_decl* list_stmt RP;
+scalar_var: ID;
+
 boolean_literal: TRUE | FALSE ;
 literal: INT_LIT | FLOAT_LIT | STRING_LIT | boolean_literal | array_literal;
 
@@ -152,7 +209,7 @@ OUT: 'out';
 BOOLEAN: 'boolean';
 FOR: 'for';
 STRING: 'string';
-CONTINUE: 'continue';
+CONTINUE_MT: 'continue';
 DO: 'do';
 FUNCTION: 'function';
 TRUE: 'true';
