@@ -19,22 +19,25 @@ program:  (var_decl|func_decl)+ EOF ;
 var_decl: global_var_decl | local_var_decl | parameter_of_func;
 global_var_decl: id_list COLON typ (ASSIGN list_expr)? SEMICOLON 
 {
-if (len($id_list.text.split(',')) != len($list_expr.text.split(','))):
-   offendingSymbol = self._ctx.start
-   line = offendingSymbol.line
-   column = self.getCurrentToken().stop
-   offendingSymbol.text = ";"
-   listener = self._listeners[-1]
-   listener.syntaxError(self, offendingSymbol, line, column, "", None)
+if ($list_expr.text != None):   
+   if (len($id_list.text.split(',')) != len($list_expr.text.split(','))):
+      offendingSymbol = self._ctx.start
+      line = offendingSymbol.line
+      column = self.getCurrentToken().stop
+      offendingSymbol.text = ";"
+      listener = self._listeners[-1]
+      listener.syntaxError(self, offendingSymbol, line, column, "", None)
 };
-local_var_decl: id_list COLON typ (ASSIGN list_expr)? SEMICOLON{
-if (len($id_list.text.split(',')) != len($list_expr.text.split(','))):
-   offendingSymbol = self._ctx.start
-   line = offendingSymbol.line
-   column = self.getCurrentToken().stop
-   offendingSymbol.text = ";"
-   listener = self._listeners[-1]
-   listener.syntaxError(self, offendingSymbol, line, column, "", None)
+local_var_decl: id_list COLON typ (ASSIGN list_expr)? SEMICOLON
+{
+if ($list_expr.text != None):   
+   if (len($id_list.text.split(',')) != len($list_expr.text.split(','))):
+      offendingSymbol = self._ctx.start
+      line = offendingSymbol.line
+      column = self.getCurrentToken().stop
+      offendingSymbol.text = ";"
+      listener = self._listeners[-1]
+      listener.syntaxError(self, offendingSymbol, line, column, "", None)
 };
 parameter_of_func: INHERIT? OUT? ID COLON typ;
 list_parameter: parameter_of_func (COMMA parameter_of_func)* ;
@@ -45,6 +48,20 @@ func_decl: func_prototype func_body;
 func_prototype: ID COLON FUNCTION typ LB list_parameter* RB (INHERIT ID)*;
 func_body: block_stmt;
 
+
+boolean_literal: TRUE | FALSE ;
+literal: INT_LIT | FLOAT_LIT | STRING_LIT | boolean_literal | index_array;
+
+//type_declaration
+atomic_typ: boolean_literal | INTERGER | FLOAT | STRING;
+index_array: LP literal (',' literal)* RP; //{1, 5, 7, 12} or  {"Kangxi", "Yongzheng", "Qianlong"}
+array_literal_type: ARRAY LSB literal (',' literal)* RSB OF atomic_typ; //array [2, 3] of integer
+//all type of system
+typ: atomic_typ 
+   | array_literal_type
+   | VOID
+   | AUTO
+   ; 
 
 //expression
 list_expr: expression (COMMA expression)*;
@@ -136,19 +153,7 @@ list_stmt: stmt_decl*;
 block_stmt: LP var_decl* list_stmt RP;
 scalar_var: ID;
 
-boolean_literal: TRUE | FALSE ;
-literal: INT_LIT | FLOAT_LIT | STRING_LIT | boolean_literal | array_literal;
 
-//type_declaration
-atomic_typ: boolean_literal | INTERGER | FLOAT | STRING;
-index_array: LP literal (',' literal)* RP; //{1, 5, 7, 12} or  {"Kangxi", "Yongzheng", "Qianlong"}
-array_literal: ARRAY LSB literal (',' literal)* RSB OF atomic_typ; //array [2, 3] of integer
-//all type of system
-typ: atomic_typ 
-   | array_literal
-   | VOID
-   | AUTO
-   ; 
 
 
 

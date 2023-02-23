@@ -59,6 +59,36 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MT22Parser#boolean_literal.
+    def visitBoolean_literal(self, ctx:MT22Parser.Boolean_literalContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#literal.
+    def visitLiteral(self, ctx:MT22Parser.LiteralContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#atomic_typ.
+    def visitAtomic_typ(self, ctx:MT22Parser.Atomic_typContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#index_array.
+    def visitIndex_array(self, ctx:MT22Parser.Index_arrayContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#array_literal_type.
+    def visitArray_literal_type(self, ctx:MT22Parser.Array_literal_typeContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#typ.
+    def visitTyp(self, ctx:MT22Parser.TypContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MT22Parser#list_expr.
     def visitList_expr(self, ctx:MT22Parser.List_exprContext):
         return self.visitChildren(ctx)
@@ -221,36 +251,6 @@ class MT22Visitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MT22Parser#scalar_var.
     def visitScalar_var(self, ctx:MT22Parser.Scalar_varContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MT22Parser#boolean_literal.
-    def visitBoolean_literal(self, ctx:MT22Parser.Boolean_literalContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MT22Parser#literal.
-    def visitLiteral(self, ctx:MT22Parser.LiteralContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MT22Parser#atomic_typ.
-    def visitAtomic_typ(self, ctx:MT22Parser.Atomic_typContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MT22Parser#index_array.
-    def visitIndex_array(self, ctx:MT22Parser.Index_arrayContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MT22Parser#array_literal.
-    def visitArray_literal(self, ctx:MT22Parser.Array_literalContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MT22Parser#typ.
-    def visitTyp(self, ctx:MT22Parser.TypContext):
         return self.visitChildren(ctx)
 
 
