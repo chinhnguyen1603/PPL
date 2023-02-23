@@ -53,7 +53,7 @@ boolean_literal: TRUE | FALSE ;
 literal: INT_LIT | FLOAT_LIT | STRING_LIT | boolean_literal | index_array;
 
 //type_declaration
-atomic_typ: boolean_literal | INTERGER | FLOAT | STRING;
+atomic_typ: BOOLEAN | INTERGER | FLOAT | STRING;
 index_array: LP literal (',' literal)* RP; //{1, 5, 7, 12} or  {"Kangxi", "Yongzheng", "Qianlong"}
 array_literal_type: ARRAY LSB literal (',' literal)* RSB OF atomic_typ; //array [2, 3] of integer
 //all type of system

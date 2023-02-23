@@ -10,7 +10,7 @@ class ParserSuite(unittest.TestCase):
         self.assertTrue(TestParser.test(input,expect,201))
 
     def test_var_declare2(self):
-        input = """b[2][3]: array = {{2,3,4},{4,5,6}};"""
+        input = """test_arr: array [0] of integer"""
         expect = "successful"
         self.assertTrue(TestParser.test(input,expect,202))
 
@@ -20,41 +20,38 @@ class ParserSuite(unittest.TestCase):
         self.assertTrue(TestParser.test(input,expect,203))
 
     def test_var_declare4(self):
-        input = """Var: m, n[10];"""
+        input = """Var: string = "welcome";"""
         expect = "successful"
         self.assertTrue(TestParser.test(input,expect,204))
 
     def test_var_declare5(self):
-        input = """Var: s="happyBirthDay";"""
+        input = """str1, str2, str3: float = 1.2, 1.3, 1.4 ;"""
         expect = "successful"
         self.assertTrue(TestParser.test(input,expect,205))
 
     def test_var_declare6(self):
-        input = """Var: s_1="'"superMan is'".", s_2="happyBirthDay", arr = {**"toYou"**, 12, 99.4e2};"""
-        expect = "Error on line 1 col 68: ,"
+        input = """str1, str2, str3: float = 1.2, 1.3 ;"""
+        expect = "Error on line 1 col 35: ;"
         self.assertTrue(TestParser.test(input,expect,206))
 
     def test_var_declare7(self):
-        input = """Var: arr[10], c[99][3][2], arr2[];
-                """
-        expect = "Error on line 1 col 32: ]"
+        input = """a: integer = 5 .;"""
+        expect = "Error on line 1 col 15: ."
         self.assertTrue(TestParser.test(input,expect,207))
 
     def test_var_declare8(self):
-        input = """Var: s="DaiH0cB4ckHo4", x= 12.2e54, c=0xF212;
-                """
+        input = """a: boolean = true;"""
         expect = "successful"
         self.assertTrue(TestParser.test(input,expect,208))
     
     def test_var_declare9(self):
-        input = """Var: arr[2][3][5] = {{"string", "s!@#$"}, {{542.10e21, 2., 9e5}}, {{1023, 1024, 2098}, {0x2141, 0xF912}}};
-                """
+        input = """a, b: string = "viet", "nam" ;"""
         expect = "successful"
         self.assertTrue(TestParser.test(input,expect,209))
+
     def test_var_declare10(self):
-        input = """Var: arr = {1,2}, a[10][22], e=40e5, c, d f=20;
-                """
-        expect = "Error on line 1 col 42: f"
+        input = """a, b,c: string = "viet","nam","net" ;"""
+        expect = "successful"
         self.assertTrue(TestParser.test(input,expect,210))
 
     #test mix program
@@ -108,3 +105,18 @@ class ParserSuite(unittest.TestCase):
         input = """{"Kangxi", "Yongzheng", "Qianlong"}"""
         expect = "Error on line 1 col 0: {"
         self.assertTrue(TestParser.test(input,expect,217))   
+
+    def test_mix8(self):
+        input = """test_arr: array [4] of integer = {1,2,3,4};"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,218))           
+
+    def test_mix9(self):
+        input = """ inherit out id: boolean"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,219))         
+
+    def test_mix10(self):
+        input = """ out id: auto"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,220))    
