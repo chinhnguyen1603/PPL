@@ -1,0 +1,4 @@
+func1: function array [2,3,4] of float () {
+          do {
+          } while (i :: 0)       
+        }

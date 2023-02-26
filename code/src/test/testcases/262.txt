@@ -1,0 +1,6 @@
+func1: function array [2,3,4] of float () {
+          while (i = 5) {
+            writeInt(i);
+            a = a + 2 * b;
+          }             
+        }

@@ -1,0 +1,5 @@
+func1: function array [2,3,4] of float () {
+          for (i = 1, i < 10, i + 1) {
+            writeInt(i);
+          }             
+        }

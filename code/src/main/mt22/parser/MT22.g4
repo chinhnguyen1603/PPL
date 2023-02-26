@@ -28,7 +28,7 @@ if (($list_expr.text != None ) and ($list_expr.text.find("{") == -1 ) ):
       listener = self._listeners[-1]
       listener.syntaxError(self, offendingSymbol, line, column, "", None)
 };
-local_var_decl: id_list COLON typ (ASSIGN list_expr)? SEMICOLON
+local_var_decl: id_list COLON typ (ASSIGN list_expr)? SEMICOLON 
 {
 if ($list_expr.text != None):   
    if (len($id_list.text.split(',')) != len($list_expr.text.split(','))):
@@ -135,15 +135,15 @@ stmt_decl: assign_stmt
     | return_stmt
     ;
 assign_stmt: (scalar_var index_operator?) ASSIGN expression SEMICOLON;
-if_stmt:IF expression list_stmt SEMICOLON? (ELSE list_stmt SEMICOLON?)?;
+if_stmt:IF expression stmt_decl+  (ELSE stmt_decl+)?;
 break_stmt: BREAK SEMICOLON;
 for_stmt
     :
-        FOR LB scalar_var ASSIGN expression COMMA expression COMMA expression RB LP
-            list_stmt
-        RP
+        FOR LB scalar_var ASSIGN expression COMMA expression COMMA expression RB LP?
+            stmt_decl+
+        RP?
     ;
-while_stmt: WHILE LB expression RB LP list_stmt RP ;
+while_stmt: WHILE LB expression RB LP? stmt_decl+ RP? ;
 do_while_stmt: DO block_stmt WHILE LB expression RB SEMICOLON;
 call_stmt: func_call_exp SEMICOLON;
 return_stmt: RETURN expression? SEMICOLON;

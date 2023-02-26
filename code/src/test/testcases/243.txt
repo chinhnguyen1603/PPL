@@ -1,0 +1,4 @@
+func1: function array [2,3,4] of float () {
+              if (r > 2.0) a=b;
+              else a = a/b;               
+        }

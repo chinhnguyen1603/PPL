@@ -1,0 +1,5 @@
+func1: function array [2,3,4] of float () {
+          do {
+            writeInt(i);
+          } while (i == 0);       
+        }

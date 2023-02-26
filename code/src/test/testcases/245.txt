@@ -1,0 +1,5 @@
+func1: function void () {
+            if (n == 0) a = a+2;
+            else a = a - 2;             
+            else return n * fact(n - 1);
+        }

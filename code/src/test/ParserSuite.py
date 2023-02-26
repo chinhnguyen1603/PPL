@@ -246,15 +246,15 @@ a[0] = s;
 r, s: boolean;
 r = 2.0;
 a, b: array [5] of integer;
-s = r * r * myPI;
-a[0] = s;
+s = r * r + myPI;
+a[0] = foo();
 }"""
         expect = "successful"
         self.assertTrue(TestParser.test(input,expect,237))        
 
     def test_ass_stmt8(self):
         input = """ func_1: function array [1,2,3] of boolean(var1: float, inherit var2: array [5] of string) inherit func_2 {
-            n = !a;
+            n = a != b;
         }"""
         expect = "successful"
         self.assertTrue(TestParser.test(input,expect,238)) 
@@ -262,15 +262,593 @@ a[0] = s;
     def test_ass_stmt9(self):
         input = """ func_1: function integer() inherit id_2 {
             n = !a;
-            b = -b;
+            f = f || f ||;
         }"""
-        expect = "successful"        
+        expect = "Error on line 3 col 25: ;"        
         self.assertTrue(TestParser.test(input,expect,239)) 
 
     def test_ass_stmt10(self):
         input = """ func_1: function integer() {
-            n = !a;
-            b = -b;
+            n = a <= m;
+            a = b >= f;
+            a = b > f;         
+            a = b < f;     
+            b = b / v;
+            b = b % j;
+            b = n - m;            
+            f = f || f || v;
         }"""
         expect = "successful"  
         self.assertTrue(TestParser.test(input,expect,240))         
+
+   #test if statement combine expression
+    def test_if_stmt1(self):
+        input = """func1: function array [2,3,4] of float () {
+              if (r > 2.0) a=b;
+              if (r == 2.0) ;               
+        }"""
+        expect = "Error on line 3 col 28: ;"
+        self.assertTrue(TestParser.test(input,expect,241))        
+
+    def test_if_stmt2(self):
+        input = """func1: function array [2,3,4] of float () {
+              if (r > 2.0) a=b;
+              if (r == 2.0) a=a+b;               
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,242)) 
+
+    def test_if_stmt3(self):
+        input = """func1: function array [2,3,4] of float () {
+              if (r > 2.0) a=b;
+              else a = a/b;               
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,243)) 
+
+    def test_if_stmt4(self):
+        input = """func1: function array [2,3,4] of float () {
+              if (r > 2.0) a=b
+              else a = a/b;               
+        }"""
+        expect = "Error on line 3 col 14: else"
+        self.assertTrue(TestParser.test(input,expect,244))        
+
+    def test_if_stmt5(self):
+        input = """func1: function void () {
+            if (n == 0) a = a+2;
+            else a = a - 2;             
+            else return n * fact(n - 1);
+        }"""
+        expect = "Error on line 4 col 12: else"
+        self.assertTrue(TestParser.test(input,expect,245)) 
+
+    def test_if_stmt6(self):
+        input = """func1: function array [2,3,4] of float () {
+              if (r > 2.0) a=b;
+              else a = a/b              
+        }"""
+        expect = "Error on line 4 col 8: }"
+        self.assertTrue(TestParser.test(input,expect,246)) 
+
+    def test_if_stmt7(self):
+        input = """func1: function string () {
+r, s: boolean;
+r = 2.0;
+a, b: array [5] of integer;
+s = r * r + myPI;
+a[0] = foo();
+}"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,247))        
+
+    def test_if_stmt8(self):
+        input = """ func_1: function array [1,2,3] of boolean(var1: float, inherit var2: array [5] of string) inherit func_2 {
+            n = a != b;
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,248)) 
+
+    def test_if_stmt9(self):
+        input = """ func_1: function integer() inherit id_2 {
+            n = !a;
+            f = f || f ||;
+        }"""
+        expect = "Error on line 3 col 25: ;"        
+        self.assertTrue(TestParser.test(input,expect,249)) 
+
+    def test_if_stmt10(self):
+        input = """ func_1: function integer() {
+            n = a <= m;
+            a = b >= f;
+            a = b > f;         
+            a = b < f;     
+            b = b / v;
+            b = b % j;
+            b = n - m;            
+            f = f || f || v;
+        }"""
+        expect = "successful"  
+        self.assertTrue(TestParser.test(input,expect,250))     
+
+   #test for statement combine expression
+    def test_for_stmt1(self):
+        input = """func1: function array [2,3,4] of float () {
+          for (i = 1, i < 10, i + 1) {
+            writeInt(i);
+          }             
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,251))        
+
+    def test_for_stmt2(self):
+        input = """func1: function array [2,3,4] of float () {
+          for (i = 5, i >= 10, i + 1) {
+            writeInt(i);
+            a = a + 2 * b;
+          }             
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,252)) 
+
+    def test_for_stmt3(self):
+        input = """func1: function array [2,3,4] of float () {
+          for (i = 5, i >= 10, i + 1) 
+            writeInt(i);
+            a = a + 2 * b;             
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,253)) 
+
+    def test_for_stmt4(self):
+        input = """func1: function array [2,3,4] of float () {
+          for (i = 5, i >= 10, i + 1, i < 3) 
+            writeInt(i);
+            a = a + 2 * b;             
+        }"""
+        expect = "Error on line 2 col 36: ,"
+        self.assertTrue(TestParser.test(input,expect,254))        
+
+    def test_for_stmt5(self):
+        input = """func1: function array [2,3,4] of float () {
+          for (i = 5, , i + 1) 
+            writeInt(i);
+            a = a + 2 * b;             
+        }"""
+        expect = "Error on line 2 col 22: ,"
+        self.assertTrue(TestParser.test(input,expect,255)) 
+
+    def test_for_stmt6(self):
+        input = """func1: function array [2,3,4] of float () {
+          for (i = 5, i >= 10, i + 1) {      
+          }
+        }"""
+        expect = "Error on line 3 col 10: }"
+        self.assertTrue(TestParser.test(input,expect,256)) 
+
+    def test_for_stmt7(self):
+        input = """func1: function string () {
+r, s: boolean;
+r = 2.0;
+a, b: array [5] of integer;
+s = r * r + myPI;
+a[0] = foo();
+}"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,257))        
+
+    def test_for_stmt8(self):
+        input = """ func_1: function array [1,2,3] of boolean(var1: float, inherit var2: array [5] of string) inherit func_2 {
+            n = a != b;
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,258)) 
+
+    def test_for_stmt9(self):
+        input = """ func_1: function integer() inherit id_2 {
+            n = !a;
+            f = f || f ||;
+        }"""
+        expect = "Error on line 3 col 25: ;"        
+        self.assertTrue(TestParser.test(input,expect,259)) 
+
+    def test_for_stmt10(self):
+        input = """ func_1: function integer() {
+            n = a <= m;
+            a = b >= f;
+            a = b > f;         
+            a = b < f;     
+            b = b / v;
+            b = b % j;
+            b = n - m;            
+            f = f || f || v;
+        }"""
+        expect = "successful"  
+        self.assertTrue(TestParser.test(input,expect,260))            
+
+   #test while statement combine expression
+    def test_while_stmt1(self):
+        input = """func1: function array [2,3,4] of float () {
+          while (i < 10, i + 1) {
+            writeInt(i);
+          }             
+        }"""
+        expect = "Error on line 2 col 23: ,"
+        self.assertTrue(TestParser.test(input,expect,261))        
+
+    def test_while_stmt2(self):
+        input = """func1: function array [2,3,4] of float () {
+          while (i = 5) {
+            writeInt(i);
+            a = a + 2 * b;
+          }             
+        }"""
+        expect = "Error on line 2 col 19: ="
+        self.assertTrue(TestParser.test(input,expect,262)) 
+
+    def test_while_stmt3(self):
+        input = """func1: function array [2,3,4] of float () {
+          while (i >= 10) 
+            writeInt(i);
+            a = a + 2 * b;             
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,263)) 
+
+    def test_while_stmt4(self):
+        input = """func1: function array [2,3,4] of float () {
+          while (a || b && c) {
+            writeInt(i);
+            a = a + 2 * b;    
+          }         
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,264))        
+
+    def test_while_stmt5(self):
+        input = """func1: function array [2,3,4] of float () {
+          while (a || b && c) { 
+          }         
+        }"""
+        expect = "Error on line 3 col 10: }"
+        self.assertTrue(TestParser.test(input,expect,265)) 
+
+    def test_while_stmt6(self):
+        input = """func1: function array [2,3,4] of float () {
+          for (i = 5, i >= 10, i + 1) {      
+          }
+        }"""
+        expect = "Error on line 3 col 10: }"
+        self.assertTrue(TestParser.test(input,expect,266)) 
+
+    def test_while_stmt7(self):
+        input = """func1: function string () {
+r, s: boolean;
+r = 2.0;
+a, b: array [5] of integer;
+s = r * r + myPI;
+a[0] = foo();
+}"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,267))        
+
+    def test_while_stmt8(self):
+        input = """ func_1: function array [1,2,3] of boolean(var1: float, inherit var2: array [5] of string) inherit func_2 {
+            n = a != b;
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,268)) 
+
+    def test_while_stmt9(self):
+        input = """ func_1: function integer() inherit id_2 {
+            n = !a;
+            f = f || f ||;
+        }"""
+        expect = "Error on line 3 col 25: ;"        
+        self.assertTrue(TestParser.test(input,expect,269)) 
+
+    def test_while_stmt10(self):
+        input = """ func_1: function integer() {
+            n = a <= m;
+            a = b >= f;
+            a = b > f;         
+            a = b < f;     
+            b = b / v;
+            b = b % j;
+            b = n - m;            
+            f = f || f || v;
+        }"""
+        expect = "successful"  
+        self.assertTrue(TestParser.test(input,expect,270))                             
+
+   #test do while statement combine expression
+    def test_do_while_stmt1(self):
+        input = """func1: function array [2,3,4] of float () {
+          do {
+            writeInt(i);
+          } while (i == 0);       
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,271))        
+
+    def test_do_while_stmt2(self):
+        input = """func1: function array [2,3,4] of float () {
+          do {
+            writeInt(i);
+          } while (i = 0);       
+        }"""
+        expect = "Error on line 4 col 21: ="
+        self.assertTrue(TestParser.test(input,expect,272)) 
+
+    def test_do_while_stmt3(self):
+        input = """func1: function array [2,3,4] of float () {
+          do {
+          } while (i :: 0);       
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,273)) 
+
+    def test_do_while_stmt4(self):
+        input = """func1: function array [2,3,4] of float () {
+          do {
+          } while (i :: 0)       
+        }"""
+        expect = "Error on line 4 col 8: }"
+        self.assertTrue(TestParser.test(input,expect,274))        
+
+    def test_do_while_stmt5(self):
+        input = """func1: function array [2,3,4] of float () {
+          for (i = 5, , i + 1) 
+            writeInt(i);
+            a = a + 2 * b;             
+        }"""
+        expect = "Error on line 2 col 22: ,"
+        self.assertTrue(TestParser.test(input,expect,275)) 
+
+    def test_do_while_stmt6(self):
+        input = """func1: function array [2,3,4] of float () {
+          for (i = 5, i >= 10, i + 1) {      
+          }
+        }"""
+        expect = "Error on line 3 col 10: }"
+        self.assertTrue(TestParser.test(input,expect,276)) 
+
+    def test_do_while_stmt7(self):
+        input = """func1: function string () {
+r, s: boolean;
+r = 2.0;
+a, b: array [5] of integer;
+s = r * r + myPI;
+a[0] = foo();
+}"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,277))        
+
+    def test_do_while_stmt8(self):
+        input = """ func_1: function array [1,2,3] of boolean(var1: float, inherit var2: array [5] of string) inherit func_2 {
+            n = a != b;
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,278)) 
+
+    def test_do_while_stmt9(self):
+        input = """ func_1: function integer() inherit id_2 {
+            n = !a;
+            f = f || f ||;
+        }"""
+        expect = "Error on line 3 col 25: ;"        
+        self.assertTrue(TestParser.test(input,expect,279)) 
+
+    def test_do_while_stmt10(self):
+        input = """ func_1: function integer() {
+            n = a <= m;
+            a = b >= f;
+            a = b > f;         
+            a = b < f;     
+            b = b / v;
+            b = b % j;
+            b = n - m;            
+            f = f || f || v;
+        }"""
+        expect = "successful"  
+        self.assertTrue(TestParser.test(input,expect,280))         
+
+   #test break continue return statement combine expression
+    def test_bcr_stmt1(self):
+        input = """func1: function array [2,3,4] of float () {
+          do {
+            writeInt(i);
+            break;
+          } while (i == 0);       
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,281))        
+
+    def test_bcr_stmt2(self):
+        input = """func1: function array [2,3,4] of float () {
+          do {
+            writeInt(i);
+            break
+          } while (i = 0);       
+        }"""
+        expect = "Error on line 5 col 10: }"
+        self.assertTrue(TestParser.test(input,expect,282)) 
+
+    def test_bcr_stmt3(self):
+        input = """func1: function array [2,3,4] of float () {
+          do {
+            continue;
+          } while (i :: 0);       
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,283)) 
+
+    def test_bcr_stmt4(self):
+        input = """func1: function array [2,3,4] of float () {
+          do {
+            continue
+          } while (i :: 0)       
+        }"""
+        expect = "Error on line 4 col 10: }"
+        self.assertTrue(TestParser.test(input,expect,284))        
+
+    def test_bcr_stmt5(self):
+        input = """func1: function array [2,3,4] of float () {
+          for (i = 5, i<=4 , i + 1) 
+            writeInt(i);
+            a = a + 2 * b;
+            return;             
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,285)) 
+
+    def test_bcr_stmt6(self):
+        input = """func1: function array [2,3,4] of float () {
+          for (i = 5, i >= 10, i + 1) {   
+            return a +b;   
+          }
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,286)) 
+
+    def test_bcr_stmt7(self):
+        input = """func1: function string () {
+r, s: boolean;
+r = 2.0;
+a, b: array [5] of integer;
+s = r * r + myPI;
+a[0] = foo();
+return
+}"""
+        expect = "Error on line 8 col 0: }"
+        self.assertTrue(TestParser.test(input,expect,287))        
+
+    def test_bcr_stmt8(self):
+        input = """ func_1: function array [1,2,3] of boolean(var1: float, inherit var2: array [5] of string) inherit func_2 {
+            n = a != b;
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,288)) 
+
+    def test_bcr_stmt9(self):
+        input = """ func_1: function integer() inherit id_2 {
+            n = !a;
+            f = f || f ||;
+        }"""
+        expect = "Error on line 3 col 25: ;"        
+        self.assertTrue(TestParser.test(input,expect,289)) 
+
+    def test_bcr_stmt10(self):
+        input = """ func_1: function integer() {
+            n = a <= m;
+            a = b >= f;
+            a = b > f;         
+            a = b < f;     
+            b = b / v;
+            b = b % j;
+            b = n - m;            
+            f = f || f || v;
+        }"""
+        expect = "successful"  
+        self.assertTrue(TestParser.test(input,expect,290))      
+
+   #test all statement combine expression
+    def test_all_stmt1(self):
+        input = """func1: function array [2,3,4] of float () {
+          return foo(2 + x, 4.0 / y);
+          goo();
+          do {
+            writeInt(i);
+            break;
+          } while (i == 0);       
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,281))        
+
+    def test_all_stmt2(self):
+        input = """func1: function array [2,3,4] of float () {
+          do {
+            writeInt(i);
+            break
+          } while (i = 0);       
+        }"""
+        expect = "Error on line 5 col 10: }"
+        self.assertTrue(TestParser.test(input,expect,282)) 
+
+    def test_all_stmt3(self):
+        input = """func1: function array [2,3,4] of float () {
+          do {
+            continue;
+          } while (i :: 0);       
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,283)) 
+
+    def test_all_stmt4(self):
+        input = """func1: function array [2,3,4] of float () {
+          do {
+            continue
+          } while (i :: 0)       
+        }"""
+        expect = "Error on line 4 col 10: }"
+        self.assertTrue(TestParser.test(input,expect,284))        
+
+    def test_all_stmt5(self):
+        input = """func1: function array [2,3,4] of float () {
+          for (i = 5, i<=4 , i + 1) 
+            writeInt(i);
+            a = a + 2 * b;
+            return;             
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,285)) 
+
+    def test_all_stmt6(self):
+        input = """func1: function array [2,3,4] of float () {
+          for (i = 5, i >= 10, i + 1) {   
+            return a +b;   
+          }
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,286)) 
+
+    def test_all_stmt7(self):
+        input = """func1: function string () {
+r, s: boolean;
+r = 2.0;
+a, b: array [5] of integer;
+s = r * r + myPI;
+a[0] = foo();
+return
+}"""
+        expect = "Error on line 8 col 0: }"
+        self.assertTrue(TestParser.test(input,expect,287))        
+
+    def test_all_stmt8(self):
+        input = """ func_1: function array [1,2,3] of boolean(var1: float, inherit var2: array [5] of string) inherit func_2 {
+            n = a != b;
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,288)) 
+
+    def test_all_stmt9(self):
+        input = """ func_1: function integer() inherit id_2 {
+            n = !a;
+            f = f || f ||;
+        }"""
+        expect = "Error on line 3 col 25: ;"        
+        self.assertTrue(TestParser.test(input,expect,289)) 
+
+    def test_all_stmt10(self):
+        input = """ func_1: function integer() {
+            n = a <= m;
+            a = b >= f;
+            a = b > f;         
+            a = b < f;     
+            b = b / v;
+            b = b % j;
+            b = n - m;            
+            f = f || f || v;
+        }"""
+        expect = "successful"  
+        self.assertTrue(TestParser.test(input,expect,290))                    

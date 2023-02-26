@@ -1,0 +1,8 @@
+func1: function string () {
+r, s: boolean;
+r = 2.0;
+a, b: array [5] of integer;
+s = r * r + myPI;
+a[0] = foo();
+return
+}
