@@ -1,0 +1,6 @@
+ func_1: function auto(inherit out var: integer, delta: boolean,inherit var2: array [5] of string) {
+            n = n + delta;
+            a = -r;
+            c = string1 :: string2;
+            c = d==b; 
+        }

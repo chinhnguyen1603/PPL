@@ -164,7 +164,7 @@ def serializedATN():
         buf.write("\2\u014e\u014f\t\5\2\2\u014f?\3\2\2\2\u0150\u0151\t\6")
         buf.write("\2\2\u0151A\3\2\2\2\u0152\u0153\t\7\2\2\u0153C\3\2\2\2")
         buf.write("\u0154\u0155\7\"\2\2\u0155E\3\2\2\2\u0156\u0157\7\36\2")
-        buf.write("\2\u0157G\3\2\2\2\u0158\u0159\7.\2\2\u0159\u015a\5$\23")
+        buf.write("\2\u0157G\3\2\2\2\u0158\u0159\7.\2\2\u0159\u015a\5\"\22")
         buf.write("\2\u015a\u015b\7/\2\2\u015bI\3\2\2\2\u015c\u0166\5L\'")
         buf.write("\2\u015d\u0166\5N(\2\u015e\u0166\5R*\2\u015f\u0166\5T")
         buf.write("+\2\u0160\u0166\5V,\2\u0161\u0166\5P)\2\u0162\u0166\5")
@@ -2427,8 +2427,8 @@ class MT22Parser ( Parser ):
         def LSB(self):
             return self.getToken(MT22Parser.LSB, 0)
 
-        def expression(self):
-            return self.getTypedRuleContext(MT22Parser.ExpressionContext,0)
+        def list_expr(self):
+            return self.getTypedRuleContext(MT22Parser.List_exprContext,0)
 
 
         def RSB(self):
@@ -2449,7 +2449,7 @@ class MT22Parser ( Parser ):
             self.state = 342
             self.match(MT22Parser.LSB)
             self.state = 343
-            self.expression()
+            self.list_expr()
             self.state = 344
             self.match(MT22Parser.RSB)
         except RecognitionException as re:

@@ -1,0 +1,4 @@
+func1: function void () {
+              r, s: integer;
+              r = a && b && c ;
+        }

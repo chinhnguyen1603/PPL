@@ -155,23 +155,37 @@ class ParserSuite(unittest.TestCase):
         self.assertTrue(TestParser.test(input,expect,226)) 
 
     def test_func_declare7(self):
-        input = """test block_decl"""
+        input = """ func_1: function array [1,2,3] of boolean(var1: float, inherit var2: array [5] of string) inherit func_2 {
+            n = !a;
+        }"""
         expect = "successful"
         self.assertTrue(TestParser.test(input,expect,227))        
 
     def test_func_declare8(self):
-        input = """test block_decl"""
+        input = """func1: function string () {
+r, s: boolean;
+r = 2.0;
+a, b: array [5] of integer;
+s = r * r * myPI;
+a[0] = s;
+}"""
         expect = "successful"
         self.assertTrue(TestParser.test(input,expect,228)) 
 
     def test_func_declare9(self):
-        input = """test block_decl"""
+        input = """ func_1: function integer() inherit id_2 {
+            n = !a;
+            b = -b;
+        }"""
         expect = "successful"
         self.assertTrue(TestParser.test(input,expect,229)) 
 
     def test_func_declare10(self):
-        input = """test block_decl"""
-        expect = "successful"
+        input = """ func_1: function integer() inherit {
+            n = !a;
+            b = -b;
+        }"""
+        expect = "Error on line 1 col 36: {"  
         self.assertTrue(TestParser.test(input,expect,230)) 
 
    #test assign statement combine expression
@@ -185,49 +199,78 @@ class ParserSuite(unittest.TestCase):
         expect = "successful"
         self.assertTrue(TestParser.test(input,expect,231))        
 
-    def test_func_declare2(self):
-        input = """func1: function string () """
-        expect = "Error on line 1 col 26: <EOF>"
-        self.assertTrue(TestParser.test(input,expect,222)) 
-
-    def test_func_declare3(self):
-        input = """func1: function boolean () {}"""
-        expect = "successful"
-        self.assertTrue(TestParser.test(input,expect,223)) 
-
-    def test_func_declare4(self):
-        input = """func1: function auto {}"""
-        expect = "Error on line 1 col 21: {"
-        self.assertTrue(TestParser.test(input,expect,224))        
-
-    def test_func_declare5(self):
-        input = """func1: integer () {};"""
-        expect = "Error on line 1 col 15: ("
-        self.assertTrue(TestParser.test(input,expect,225)) 
-
-    def test_func_declare6(self):
-        input = """ func_1: function auto(inherit out var: integer, delta: boolean,inherit var2: array [5] of string) {
-            n = n + delta;
+    def test_ass_stmt2(self):
+        input = """func1: function void () {
+              r, s: integer;
+              r = a && b && c ;
         }"""
         expect = "successful"
-        self.assertTrue(TestParser.test(input,expect,226)) 
+        self.assertTrue(TestParser.test(input,expect,232)) 
 
-    def test_func_declare7(self):
-        input = """test block_decl"""
-        expect = "successful"
-        self.assertTrue(TestParser.test(input,expect,227))        
+    def test_ass_stmt3(self):
+        input = """func1: function void () {
+              r, s: integer;
+              r = && b && c ;
+        }"""
+        expect = "Error on line 3 col 18: &&"
+        self.assertTrue(TestParser.test(input,expect,233)) 
 
-    def test_func_declare8(self):
-        input = """test block_decl"""
+    def test_ass_stmt4(self):
+        input = """func1: function void () {
+              r, s: boolean;
+              r = array1[2];
+        }"""
         expect = "successful"
-        self.assertTrue(TestParser.test(input,expect,228)) 
+        self.assertTrue(TestParser.test(input,expect,234))        
 
-    def test_func_declare9(self):
-        input = """test block_decl"""
+    def test_ass_stmt5(self):
+        input = """func1: function void () {
+              r, s: boolean;
+              r = array1[2,3];
+        }"""
         expect = "successful"
-        self.assertTrue(TestParser.test(input,expect,229)) 
+        self.assertTrue(TestParser.test(input,expect,235)) 
 
-    def test_func_declare10(self):
-        input = """test block_decl"""
+    def test_ass_stmt6(self):
+        input = """ func_1: function auto(inherit out var: integer, delta: boolean,inherit var2: array [5] of string) {
+            n = n + delta;
+            a = -r;
+            c = string1 :: string2;
+            c = d==b; 
+        }"""
         expect = "successful"
-        self.assertTrue(TestParser.test(input,expect,230))         
+        self.assertTrue(TestParser.test(input,expect,236)) 
+
+    def test_ass_stmt7(self):
+        input = """func1: function string () {
+r, s: boolean;
+r = 2.0;
+a, b: array [5] of integer;
+s = r * r * myPI;
+a[0] = s;
+}"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,237))        
+
+    def test_ass_stmt8(self):
+        input = """ func_1: function array [1,2,3] of boolean(var1: float, inherit var2: array [5] of string) inherit func_2 {
+            n = !a;
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input,expect,238)) 
+
+    def test_ass_stmt9(self):
+        input = """ func_1: function integer() inherit id_2 {
+            n = !a;
+            b = -b;
+        }"""
+        expect = "successful"        
+        self.assertTrue(TestParser.test(input,expect,239)) 
+
+    def test_ass_stmt10(self):
+        input = """ func_1: function integer() {
+            n = !a;
+            b = -b;
+        }"""
+        expect = "successful"  
+        self.assertTrue(TestParser.test(input,expect,240))         

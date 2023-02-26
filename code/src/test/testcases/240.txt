@@ -1,4 +1,4 @@
- func_1: function integer() inherit id_2 {
+ func_1: function integer() {
             n = !a;
             b = -b;
         }

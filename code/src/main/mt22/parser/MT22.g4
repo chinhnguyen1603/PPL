@@ -120,7 +120,7 @@ multiplying_operator: MULOP
 					;			   					  				    
 logical_second_operator: NOT;
 sign_operator: SUBOP;
-index_operator: LSB expression RSB;
+index_operator: LSB list_expr RSB;
 
 
 //statement

@@ -1,1 +1,4 @@
-test block_decl
+ func_1: function integer() inherit {
+            n = !a;
+            b = -b;
+        }
