@@ -50,12 +50,12 @@ def serializedATN():
         buf.write("\n(\5(\u017b\n(\3)\3)\3)\3*\3*\3*\3*\3*\3*\3*\3*\3*\3")
         buf.write("*\3*\3*\3*\3*\3+\3+\3+\3+\3+\3+\3+\3+\3,\3,\3,\3,\3,\3")
         buf.write(",\3,\3,\3-\3-\3-\3.\3.\5.\u01a3\n.\3.\3.\3/\3/\3/\3\60")
-        buf.write("\7\60\u01ab\n\60\f\60\16\60\u01ae\13\60\3\61\3\61\7\61")
-        buf.write("\u01b2\n\61\f\61\16\61\u01b5\13\61\3\61\3\61\3\61\3\62")
+        buf.write("\7\60\u01ab\n\60\f\60\16\60\u01ae\13\60\3\61\3\61\3\61")
+        buf.write("\7\61\u01b3\n\61\f\61\16\61\u01b6\13\61\3\61\3\61\3\62")
         buf.write("\3\62\3\62\2\6*,.\64\63\2\4\6\b\n\f\16\20\22\24\26\30")
         buf.write("\32\34\36 \"$&(*,.\60\62\64\668:<>@BDFHJLNPRTVXZ\\^`b")
         buf.write("\2\b\4\2\t\t\27\27\6\2\n\n\16\16\21\21\23\23\3\2%*\3\2")
-        buf.write("#$\3\2\35\36\3\2\37!\2\u01bc\2f\3\2\2\2\4o\3\2\2\2\6q")
+        buf.write("#$\3\2\35\36\3\2\37!\2\u01bd\2f\3\2\2\2\4o\3\2\2\2\6q")
         buf.write("\3\2\2\2\b{\3\2\2\2\n\u0086\3\2\2\2\f\u008f\3\2\2\2\16")
         buf.write("\u0097\3\2\2\2\20\u009f\3\2\2\2\22\u00a2\3\2\2\2\24\u00b5")
         buf.write("\3\2\2\2\26\u00b7\3\2\2\2\30\u00be\3\2\2\2\32\u00c0\3")
@@ -200,15 +200,15 @@ def serializedATN():
         buf.write("\2\2\u01a7\u01a8\7\62\2\2\u01a8]\3\2\2\2\u01a9\u01ab\5")
         buf.write("J&\2\u01aa\u01a9\3\2\2\2\u01ab\u01ae\3\2\2\2\u01ac\u01aa")
         buf.write("\3\2\2\2\u01ac\u01ad\3\2\2\2\u01ad_\3\2\2\2\u01ae\u01ac")
-        buf.write("\3\2\2\2\u01af\u01b3\7\64\2\2\u01b0\u01b2\5\4\3\2\u01b1")
-        buf.write("\u01b0\3\2\2\2\u01b2\u01b5\3\2\2\2\u01b3\u01b1\3\2\2\2")
-        buf.write("\u01b3\u01b4\3\2\2\2\u01b4\u01b6\3\2\2\2\u01b5\u01b3\3")
-        buf.write("\2\2\2\u01b6\u01b7\5^\60\2\u01b7\u01b8\7\65\2\2\u01b8")
-        buf.write("a\3\2\2\2\u01b9\u01ba\7\67\2\2\u01bac\3\2\2\2%fhov\u0080")
-        buf.write("\u0086\u0089\u0094\u009c\u00aa\u00b2\u00be\u00c8\u00d4")
-        buf.write("\u00df\u00e6\u00f0\u00f7\u0102\u010e\u011a\u0121\u0127")
-        buf.write("\u0130\u013a\u0143\u0146\u0165\u0169\u0173\u0178\u017a")
-        buf.write("\u01a2\u01ac\u01b3")
+        buf.write("\3\2\2\2\u01af\u01b4\7\64\2\2\u01b0\u01b3\5\4\3\2\u01b1")
+        buf.write("\u01b3\5J&\2\u01b2\u01b0\3\2\2\2\u01b2\u01b1\3\2\2\2\u01b3")
+        buf.write("\u01b6\3\2\2\2\u01b4\u01b2\3\2\2\2\u01b4\u01b5\3\2\2\2")
+        buf.write("\u01b5\u01b7\3\2\2\2\u01b6\u01b4\3\2\2\2\u01b7\u01b8\7")
+        buf.write("\65\2\2\u01b8a\3\2\2\2\u01b9\u01ba\7\67\2\2\u01bac\3\2")
+        buf.write("\2\2&fhov\u0080\u0086\u0089\u0094\u009c\u00aa\u00b2\u00be")
+        buf.write("\u00c8\u00d4\u00df\u00e6\u00f0\u00f7\u0102\u010e\u011a")
+        buf.write("\u0121\u0127\u0130\u013a\u0143\u0146\u0165\u0169\u0173")
+        buf.write("\u0178\u017a\u01a2\u01ac\u01b2\u01b4")
         return buf.getvalue()
 
 
@@ -572,7 +572,7 @@ class MT22Parser ( Parser ):
             self.state = 118
             self.match(MT22Parser.SEMICOLON)
 
-            if ((None if localctx._list_expr is None else self._input.getText(localctx._list_expr.start,localctx._list_expr.stop)) != None):   
+            if (((None if localctx._list_expr is None else self._input.getText(localctx._list_expr.start,localctx._list_expr.stop)) != None ) and ((None if localctx._list_expr is None else self._input.getText(localctx._list_expr.start,localctx._list_expr.stop)).find("{") == -1 ) ):   
                if (len((None if localctx._id_list is None else self._input.getText(localctx._id_list.start,localctx._id_list.stop)).split(',')) != len((None if localctx._list_expr is None else self._input.getText(localctx._list_expr.start,localctx._list_expr.stop)).split(','))):
                   offendingSymbol = self._ctx.start
                   line = offendingSymbol.line
@@ -3173,10 +3173,6 @@ class MT22Parser ( Parser ):
         def LP(self):
             return self.getToken(MT22Parser.LP, 0)
 
-        def list_stmt(self):
-            return self.getTypedRuleContext(MT22Parser.List_stmtContext,0)
-
-
         def RP(self):
             return self.getToken(MT22Parser.RP, 0)
 
@@ -3185,6 +3181,13 @@ class MT22Parser ( Parser ):
                 return self.getTypedRuleContexts(MT22Parser.Var_declContext)
             else:
                 return self.getTypedRuleContext(MT22Parser.Var_declContext,i)
+
+
+        def stmt_decl(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(MT22Parser.Stmt_declContext)
+            else:
+                return self.getTypedRuleContext(MT22Parser.Stmt_declContext,i)
 
 
         def getRuleIndex(self):
@@ -3197,23 +3200,33 @@ class MT22Parser ( Parser ):
 
         localctx = MT22Parser.Block_stmtContext(self, self._ctx, self.state)
         self.enterRule(localctx, 94, self.RULE_block_stmt)
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 429
             self.match(MT22Parser.LP)
-            self.state = 433
+            self.state = 434
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,34,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
-                    self.state = 430
-                    self.var_decl() 
-                self.state = 435
+            _la = self._input.LA(1)
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MT22Parser.BREAK) | (1 << MT22Parser.RETURN) | (1 << MT22Parser.OUT) | (1 << MT22Parser.FOR) | (1 << MT22Parser.CONTINUE_MT) | (1 << MT22Parser.DO) | (1 << MT22Parser.IF) | (1 << MT22Parser.WHILE) | (1 << MT22Parser.INHERIT) | (1 << MT22Parser.ID))) != 0):
+                self.state = 432
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,34,self._ctx)
+                la_ = self._interp.adaptivePredict(self._input,34,self._ctx)
+                if la_ == 1:
+                    self.state = 430
+                    self.var_decl()
+                    pass
 
-            self.state = 436
-            self.list_stmt()
+                elif la_ == 2:
+                    self.state = 431
+                    self.stmt_decl()
+                    pass
+
+
+                self.state = 436
+                self._errHandler.sync(self)
+                _la = self._input.LA(1)
+
             self.state = 437
             self.match(MT22Parser.RP)
         except RecognitionException as re:

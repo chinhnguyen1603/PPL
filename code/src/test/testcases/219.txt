@@ -1,1 +1,1 @@
- inherit out id: boolean
+ inherit out id: void

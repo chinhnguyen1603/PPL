@@ -1,0 +1,6 @@
+func1: function array [2,3,4] of float () {
+              r, s: integer;
+              r = 2.0;
+              a: float;
+              var = 2 + 3;
+        }

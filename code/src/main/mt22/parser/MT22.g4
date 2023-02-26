@@ -19,7 +19,7 @@ program:  (var_decl|func_decl)+ EOF ;
 var_decl: global_var_decl | local_var_decl | parameter_of_func;
 global_var_decl: id_list COLON typ (ASSIGN list_expr)? SEMICOLON 
 {
-if ($list_expr.text != None):   
+if (($list_expr.text != None ) and ($list_expr.text.find("{") == -1 ) ):   
    if (len($id_list.text.split(',')) != len($list_expr.text.split(','))):
       offendingSymbol = self._ctx.start
       line = offendingSymbol.line
@@ -150,7 +150,7 @@ return_stmt: RETURN expression? SEMICOLON;
 continue_stmt: CONTINUE_MT SEMICOLON;
 list_stmt: stmt_decl*;
 
-block_stmt: LP var_decl* list_stmt RP;
+block_stmt: LP (var_decl|stmt_decl)* RP;
 scalar_var: ID;
 
 
