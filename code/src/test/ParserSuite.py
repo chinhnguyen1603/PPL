@@ -328,7 +328,7 @@ a[0] = foo();
               if (r > 2.0) a=b;
               else a = a/b              
         }"""
-        expect = "Error on line 4 col 8: }"
+        expect = "Error on line 3 col 14: else"
         self.assertTrue(TestParser.test(input,expect,246)) 
 
     def test_if_stmt7(self):
